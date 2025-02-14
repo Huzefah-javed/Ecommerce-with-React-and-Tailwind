@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
-
+body{
+    background: #efefef;
+}
 @layer utilities{
     .text-shadow{
         text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.662);
+    }
+    .clip-custom-men {
+        clip-path: polygon(0 0, 65% 0, 100% 100%, 0% 100%);
+    }
+    .clip-custom-women{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%);
     }
 }
