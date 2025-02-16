@@ -4,7 +4,7 @@ import { ProductsCategories } from "./LandingPageSections/ProductsCategories"
 
 export const Landingpage =()=> {
     return (<>
-        <HeroSection/>
+        <HeroSection />
         <ProductsCategories/>
         <JacketSection/>
     </>)

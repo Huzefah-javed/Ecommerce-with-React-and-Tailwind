@@ -1,14 +1,46 @@
 export const ProductsCategories =()=>{
+
+    const products = [
+        {
+            name : "Beauty",
+            imageLink : "beauty category.jpg"
+        },
+        {
+            name : "home decoration",
+            imageLink : "home decoration.jpg"
+        },
+        {
+            name : "Laptops",
+            imageLink : "laptops category.jpg"
+        },
+        {
+            name : "smartPhone",
+            imageLink : "smartPhone category.jpg"
+        }
+    ]
+
     return <div className="w-full flex flex-col justify-between items-center pt-28 pb-28">
         <div className="w-full flex justify-evenly ali">
-            <div className="group relative min-h-72 max-w-64 cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-5 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50 -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.2rem] text-shadow uppercase">Beauty</h2><img className="h-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="beauty category.jpg" alt="beauty category" /></div>
-            <div className="group relative min-h-72 max-w-64  cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-5 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50  -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.2rem] text-shadow uppercase">home decoration</h2><img className="h-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="home decoration.jpg" alt="home decoration" /></div>
-            <div className="group relative min-h-72 max-w-64  cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-5 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50  -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.2rem] text-shadow uppercase">laptops</h2><img className="h-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="laptops category.jpg" alt="laptops category" /></div>
-            <div className="group relative min-h-72 max-w-64  cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-5 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50  -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.2rem] text-shadow uppercase">smartPhone</h2><img className="h-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="smartPhone category.jpg" alt="smartPhone category" /></div>
+           {
+            products.map((product, index) => {
+                return( 
+                       <div key={index} className="group relative min-h-72 max-w-64 products-category-basic-style">
+                          <h2 className="product-category-h1-style text-shadow text-[1.2rem]">{product.name}</h2>
+                          <img className="product-category-image-style" src={product.imageLink} alt={product.name} />
+                        </div>
+                        )
+            })
+           }
         </div>
         <div className="h-dvh w-full flex justify-center mt-20 relative">
-            <div className="group w-[60.25%] h-full absolute left-0 clip-custom-men cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50 -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.5rem] text-shadow uppercase">Men's Clothing</h2><img className="h-full w-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="mens category.jpg" alt="mens category" /></div>
-            <div className="group w-[60.25%] h-full absolute right-0 origin-right clip-custom-women cursor-pointer before-content-[''] before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden"><h2 className="absolute top-[50%] left-[50%] z-50 -translate-x-[50%] -translate-y-[50%] text-white font-bold text-[1.5rem] text-shadow uppercase">Women's Cloting</h2><img className="h-full w-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000" src="womens category.jpg" alt="womans category" /></div>
-        </div>
-    </div>
+            <div className="group w-[60.25%] h-full products-category-basic-style absolute left-0 clip-custom-men">
+                <h2 className="product-category-h1-style text-shadow text-[1.5rem]">Men's Clothing</h2>
+                <img className="product-category-image-style" src="mens category.jpg" alt="mens category"/>
+            </div>
+            <div className="group w-[60.25%] h-full products-category-basic-style absolute right-0 clip-custom-women">
+                <h2 className="product-category-h1-style text-shadow text-[1.5rem]">Women's Clothing</h2>
+                <img className="product-category-image-style" src="womens category.jpg" alt="womans category"/>
+           </div>
+         </div>
+       </div>
 }
