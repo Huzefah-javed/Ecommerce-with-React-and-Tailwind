@@ -1,11 +1,12 @@
+import { Header } from "../../web Components/Header/Header"
 import { HeroSection } from "./LandingPageSections/HeroSection"
-import { JacketSection } from "./LandingPageSections/JacketSection"
 import { ProductsCategories } from "./LandingPageSections/ProductsCategories"
 
 export const Landingpage =()=> {
     return (<>
+    <Header/>
         <HeroSection 
-           bg_link=""
+           bg_link="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
             heading="Elevate Your Shopping Experience"
              para="Shop premium products at unbeatable prices with fast shipping and secure payments."
               button_text="Shop Now" />
