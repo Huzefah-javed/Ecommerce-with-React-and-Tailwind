@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @layer utilities{
+    .box-shadow{
+        box-shadow: 0.1rem 0.1rem 0.25rem rgba(0, 0, 0, 0.203)
+    }
     .text-shadow{
         text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.662);
     }
@@ -13,11 +16,11 @@
 }
 
 .products-category-basic-style{
-    @apply cursor-pointer before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-50 overflow-hidden
+    @apply cursor-pointer before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-40 overflow-hidden
 }
 .product-category-image-style{
     @apply h-full w-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000
 }
 .product-category-h1-style{
-    @apply absolute top-[50%] left-[50%] z-50 -translate-x-[50%] -translate-y-[50%] text-white font-bold uppercase
+    @apply absolute top-[50%] left-[50%] z-40 -translate-x-[50%] -translate-y-[50%] text-white font-bold uppercase
 }

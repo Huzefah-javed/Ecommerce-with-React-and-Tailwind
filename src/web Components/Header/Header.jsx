@@ -1,6 +1,7 @@
 import { IoIosSearch } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { HeaderMenubarDetail } from "./HeadermenuBarDetail";
 
 export const Header =()=> {
     return ( 
@@ -16,6 +17,7 @@ export const Header =()=> {
             <button className="text-white text-[1.5rem] font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500"><MdOutlineShoppingBag />
             </button>
         </div>
+        <HeaderMenubarDetail/>
     </header>
     )
 }
