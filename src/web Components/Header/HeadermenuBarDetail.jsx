@@ -9,8 +9,8 @@ export const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
     }
     
     return <div className={`fixed -top-0 left-0 h-dvh w-dvw bg-white p-8 transition-all duration-300 ease-in-out${menuActive? "visible opacity-100 z-50 ": "opacity-0 invisible -z-50"} overflow-y-scroll`}>
-        <header className=" w-full h-24 flex justify-between items-center fixed top-0 bg-white">
-        <svg data-v-2e58fd37="" data-v-549ed7fb="" viewBox="0 0 1856 80" xmlns="http://www.w3.org/2000/svg" focusable="false" class="logo-link dark"><path data-v-2e58fd37="" d="M27.7372067,3.17560999e-14 L1.5242928e-13,39.9106145 L27.8078212,79.8167598 L27.8082682,79.8167598 L36.8223464,66.8487151 L17.7899441,39.630838 L36.5448045,12.6319553 L27.7372067,3.17560999e-14 Z M26.633743,39.9106145 L41.1343017,60.6458101 L55.5521788,39.9110615 L55.5521788,39.9097207 L41.070838,19.1293855 L26.633743,39.9106145 Z" id="Fill-1" fill="#231F20"></path></svg>
+        <header className=" w-full h-24 flex justify-between items-center fixed top-0 bg-white pt-4">
+        <img className="w-10" src="Logo.png" alt="logo" />
 
         <button onClick={()=>handleCloseMenu()} className=" h-fit w-fit text-[1.4rem] box-shadow p-2 cursor-pointer mr-10"><GrClose /></button>
         </header>

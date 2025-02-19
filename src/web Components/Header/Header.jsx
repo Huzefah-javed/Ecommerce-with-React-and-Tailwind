@@ -3,13 +3,18 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { HeaderMenubarDetail } from "./HeadermenuBarDetail";
 import { useState } from "react";
+import { HeaderSearchMenuDetail } from "./HeaderSearchMenuDetail";
 
 export const Header =()=> {
 
     const [menuActive , setMenuActive] = useState(false)
+    const [searchMenuActive , setSearchMenuActive] = useState(false)
 
    const handleMenuActive =()=> {
         setMenuActive(true)
+   }
+   const handleSearchMenuActive =()=> {
+    setSearchMenuActive(true)
    }
 
     return ( 
@@ -20,12 +25,13 @@ export const Header =()=> {
         <div className="flex mr-12 font-sans relative">
             <button className="text-white text-[1.1rem] font-bold ml-10 uppercase cursor-pointer">Shop</button>
             <button className="text-white text-[1.1rem] font-bold ml-10 uppercase cursor-pointer">Experience</button>
-            <button className="text-white text-[1.5rem] font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500"><IoIosSearch /></button>
+            <button onClick={()=> handleSearchMenuActive()} className="text-white text-[1.5rem] font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500"><IoIosSearch /></button>
             <button  onClick={()=>handleMenuActive()} className="text-white text-[1.5rem] font-bold ml-10 cursor-pointer"><RxHamburgerMenu /></button>
             <button className="text-white text-[1.5rem] font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500"><MdOutlineShoppingBag />
             </button>
         </div>
         <HeaderMenubarDetail menuActive={menuActive} setMenuActive={setMenuActive}/>
+        <HeaderSearchMenuDetail searchMenuActive={searchMenuActive} setSearchMenuActive={setSearchMenuActive}/>
     </header>
     )
 }

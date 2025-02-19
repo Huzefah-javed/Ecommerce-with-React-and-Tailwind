@@ -16,11 +16,11 @@
 }
 
 .products-category-basic-style{
-    @apply cursor-pointer before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-40 overflow-hidden
+    @apply cursor-pointer before:transition-all before:duration-500 before:absolute before:ease-in-out before:bg-black before:opacity-0 before:h-full before:w-full before:top-0 before:left-0 hover:before:opacity-40 before:z-30 overflow-hidden
 }
 .product-category-image-style{
     @apply h-full w-full group-hover:scale-x-105 group-hover:z-10 group-hover:scale-y-105 transition-all duration-1000
 }
 .product-category-h1-style{
-    @apply absolute top-[50%] left-[50%] z-40 -translate-x-[50%] -translate-y-[50%] text-white font-bold uppercase
+    @apply absolute top-[50%] left-[50%] z-30 -translate-x-[50%] -translate-y-[50%] text-white font-bold uppercase
 }
