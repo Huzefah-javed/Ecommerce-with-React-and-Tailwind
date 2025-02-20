@@ -8,5 +8,5 @@ const api = axios.create({
 
 export const productCategory = async()=> {
   const res = await api.get("/category-list")
-  return console.log(res.data)
+    return res.data;
 }
