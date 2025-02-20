@@ -1,8 +1,10 @@
+import { productCategory } from "../../Api data/ProductDataFetch"
 import { Header } from "../../web Components/Header/Header"
 import { HeroSection } from "./LandingPageSections/HeroSection"
 import { ProductsCategories } from "./LandingPageSections/ProductsCategories"
 
 export const Landingpage =()=> {
+    
     return (<>
     <Header/>
         <HeroSection 
