@@ -5,6 +5,7 @@ import { HeaderMenubarDetail } from "./HeadermenuBarDetail";
 import { useState } from "react";
 import { HeaderSearchMenuDetail } from "./HeaderSearchMenuDetail";
 import { HeaderShopMenu } from "./HeaderShopMenu";
+import { HeaderExperienceDetail } from "./HeaderExperienceDetail";
 
 export const Header =()=> {
 
@@ -38,6 +39,7 @@ export const Header =()=> {
         <HeaderMenubarDetail menuActive={menuActive} setMenuActive={setMenuActive}/>
         <HeaderSearchMenuDetail searchMenuActive={searchMenuActive} setSearchMenuActive={setSearchMenuActive}/>
         <HeaderShopMenu shopMenuActive={shopMenuActive} setShopMenuActive={setShopMenuActive}/>
+        <HeaderExperienceDetail/>
     </header>
 )
 }

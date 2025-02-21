@@ -16,10 +16,10 @@ export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
                 <button onClick={()=> handleShopMenuClose()} className=" h-fit w-fit text-[1.4rem] box-shadow p-2 cursor-pointer mr-10"><GrClose /></button>
                 </header>
                 <h1 className={`text-2xl capitalize font-bold font-sans transition-all duration-200 ease-in-out ${shopMenuActive? "mt-28":"mt-40" } mb-12`}>Shop All Category</h1>
-                <div className={`main grid grid-cols-5 grid-rows-5 ml-4 transition-all duration-300 ease-in-out`}>
+                <div className={`main grid grid-cols-5 gap-y-4 grid-rows-5 ml-8 transition-all duration-300 ease-in-out`}>
                     {
                        loading? (<div>Loading.....</div>) : !error? data?.map((individualCategory, index)=>{
-                            return (<div key={index} className="group flex items-center justify-around cursor-pointer text-[1.2rem] capitalize tracking-tighter m-1 font-medium"><h1 className="max-w-20 mr-4">{individualCategory}</h1><img className="w-[1rem] transition-all duration-500 ease-in-out group-hover:translate-x-4" src="arrow image.png" alt="arrow image"/></div>)
+                            return (<div key={index} className="group max-w-8 flex items-center justify-around cursor-pointer text-[1.2rem] capitalize tracking-tighter m-1 font-medium"><h1 className="max-w-20 mr-4">{individualCategory}</h1><img className="w-[1rem] transition-all duration-500 ease-in-out group-hover:translate-x-4" src="arrow image.png" alt="arrow image"/></div>)
 
                     }): (<div>{error}</div>)
                     }
