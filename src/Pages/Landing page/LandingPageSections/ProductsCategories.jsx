@@ -19,7 +19,7 @@ export const ProductsCategories =()=>{
         }
     ]
 
-    return <div className="w-full flex flex-col justify-between items-center relative z-10 pt-28 pb-28">
+    return <div className="w-full flex flex-col justify-between items-center relative z-10 pb-28">
         <div className="w-full flex justify-evenly ali">
            {
             products.map((product, index) => {

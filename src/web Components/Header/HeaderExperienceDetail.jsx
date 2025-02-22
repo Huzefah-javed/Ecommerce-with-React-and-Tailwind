@@ -67,7 +67,7 @@ export const HeaderExperienceDetail =({experienceMenu , setExperienceMenu})=> {
                                     return (<div key={index} className={`absolute top-0 left-0 h-[20rem] flex flex-col justify-evenly transition-all duration-[0.7s] ease-in-out${singleLinkIndex === index ? " opacity-100" : " top-[4rem] opacity-0 invisible"}`}>
                                         <h1 className="text-6xl break-words uppercase text-white font-extrabold">{singleContent.HeadingText}</h1>
                                         {singleContent.paraText? (<p className="font-sans text-white">{singleContent.paraText}</p>): ""}
-                                        <button className="p-2 border-white text-white border-4 border-solid w-20 font-extrabold cursor-pointer transition-all duration-500 ease-in-out origin-top-right hover:border-black">Explore</button>
+                                        <button className="p-2 border-white text-white border-4 border-solid w-20 font-extrabold cursor-pointer ">Explore</button>
                                     </div>
                                     )
                                 })
