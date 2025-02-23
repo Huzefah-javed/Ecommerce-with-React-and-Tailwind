@@ -7,6 +7,12 @@ const api = axios.create({
 
 
 export const productCategory = async()=> {
-  const res = await api.get("/category-list")
+  const res = await api.get("/categories")
     return res.data;
+}
+
+export const productCategoryList = async (productCategory)=>{
+    const res =   await api.get(`/category/${productCategory}`)
+     console.log(res.data);
+     
 }
