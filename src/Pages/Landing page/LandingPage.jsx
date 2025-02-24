@@ -1,10 +1,6 @@
 
-import { useEffect } from "react"
-import { productDataHandle } from "../../Api data/ProductDataHandle"
-import { Header } from "../../web Components/Header/Header"
 import { HeroSection } from "./LandingPageSections/HeroSection"
 import { ProductsCategories } from "./LandingPageSections/ProductsCategories"
-import { Footer } from "../../web Components/Footer/Footer"
 
 export const Landingpage =()=> {
 

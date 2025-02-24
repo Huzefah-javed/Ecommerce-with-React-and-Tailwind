@@ -13,6 +13,6 @@ export const productCategory = async()=> {
 
 export const productCategoryList = async (productCategory)=>{
     const res =   await api.get(`/category/${productCategory}`)
-     console.log(res.data);
+     return res.data
      
 }

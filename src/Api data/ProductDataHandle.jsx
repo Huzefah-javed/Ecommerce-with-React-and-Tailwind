@@ -1,19 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
-import { productCategory } from "./ProductDataFetch"
+import { productCategoryList } from "./ProductDataFetch"
 import { useDispatch } from "react-redux"
-import { addProductCategoryData } from "../Store"
+import { addProductData } from "../Store"
+
 
 export const productDataHandle =()=> {
     const dispatch =  useDispatch()
     
     const {data, isLoading, error} = useQuery({
-        queryKey: ["productsCategory"],
-        queryFn : productCategory,
+        queryKey: ["products"],
+        queryFn : productCategoryList,
     })
         if (!isLoading) {
-            
-            console.log("yahan tk data araha he", data)
-            dispatch(addProductCategoryData({data, error: error?.message}))
+            dispatch(addProductData({data, error: error?.message}))
         }
-
 }
