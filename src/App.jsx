@@ -3,10 +3,9 @@ import { Landingpage } from "./Pages/Landing page/LandingPage"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { StructurePage } from "./Pages/StructurePage"
 import { ProductsPage } from "./Pages/ProductsPage"
-import { productDataHandle } from "./Api data/ProductCategoryDataHandle"
+
 
 export const App =()=> {
-  productDataHandle()
   const router = createBrowserRouter([
     {
       path: "/",

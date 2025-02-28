@@ -1,19 +1,28 @@
 
-import { Children } from "react"
 import { GrClose } from "react-icons/gr"
-import { useSelector } from "react-redux"
-import { productCategoryList } from "../../Api data/ProductDataFetch"
+import { useDispatch} from "react-redux"
+import { productCategory } from "../../Api data/ProductDataFetch"
 import { NavLink } from "react-router"
+import { addProductCategoryData } from "../../Store"
+import { useQuery } from "@tanstack/react-query"
+
 
 export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
+    const dispatch = useDispatch()
     
-    const {data, loading, error} = useSelector((state) => state.ProductDetails.category)
+
+    const {data, isLoading, error} = useQuery({
+        queryKey: ["productsCategory"],
+        queryFn : productCategory,
+    })
+        
         const handleShopMenuClose =()=> {
             setShopMenuActive(false);
         }
         
         const handleDataFetch =(productCategory)=> {
-            productCategoryList(productCategory)
+        
+            dispatch(addProductCategoryData(productCategory))        
             setShopMenuActive(false);
         }
     return <>
@@ -26,7 +35,7 @@ export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
                 <h1 className={`text-2xl capitalize font-bold font-sans transition-all duration-200 ease-in-out ${shopMenuActive? "mt-28":"mt-40" } mb-12`}>Shop All Category</h1>
                 <div className={`main grid grid-cols-5 gap-y-4 grid-rows-5 ml-8 transition-all duration-300 ease-in-out`}>
                     {
-                       loading? (<div>Loading.....</div>) : !error? data?.map((individualCategory, index)=>{
+                       isLoading? (<div>Loading.....</div>) : !error? data?.map((individualCategory, index)=>{
                             return (<div key={index} className="group max-w-8 flex items-center justify-around cursor-pointer text-[1.2rem] capitalize tracking-tighter m-1 font-medium"><NavLink to="/products" onClick={()=>handleDataFetch(individualCategory.slug)} className="max-w-20 mr-4">{individualCategory.name}</NavLink><img className="w-[1rem] transition-all duration-500 ease-in-out group-hover:translate-x-4" src="arrow image.png" alt="arrow image"/></div>)
 
                     }): (<div>{error}</div>)

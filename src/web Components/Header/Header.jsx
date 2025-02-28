@@ -20,8 +20,8 @@ export const Header =()=> {
    const handleSearchMenuActive =()=> {
     setSearchMenuActive(true)
    }
-   const handleShopMenuActive =()=> {
-    setShopMenuActive(true)
+   const handleShopMenuActive = ()=> {
+       setShopMenuActive(true)
    }
    const handleExperienceMenuActive =()=> {
     setExperienceMenu(true)
