@@ -27,3 +27,28 @@
 .product-category-h1-style{
     @apply absolute top-[50%] left-[50%] z-30 -translate-x-[50%] -translate-y-[50%] text-white font-bold uppercase
 }
+
+/* Target the scrollbar inside a specific div */
+.custom-scrollbar{
+    scroll-snap-type:x mandatory;
+}
+.custom-product{
+    scroll-snap-align: start;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    height: 0.25rem;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #e5e7eb; /* Tailwind gray-200 */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+  

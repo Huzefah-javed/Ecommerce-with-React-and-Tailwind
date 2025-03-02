@@ -1,8 +1,10 @@
 import { GrClose } from "react-icons/gr"
 import { FiSearch } from "react-icons/fi";
+import { useState } from "react";
+import { ProductsShowCase } from "../../Pages/Landing page/LandingPageSections/ProductsShowCase"
 
 export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=> {
-
+    const [searchValue, setSearchedValue] = useState("")
     const handleSearchMenuClose =()=>{
         setSearchMenuActive(false)
     }
@@ -14,7 +16,9 @@ export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=>
                     
                 <img className="w-10" src="Logo.png" alt="logo" />
                 <form className="row-span-2 w-[35rem] h-14 p-2 flex justify-center items-center ml-10 border-2 border-black border-solid self-center justify-self-stretch">
-                    <input className="border-none outline-none grow-[2] bg-white focus:bg-white" type="text" name="text" id="search" placeholder="Search for a product" />
+                    <input className="border-none outline-none grow-[2] bg-white focus:bg-white" type="text" name="text" id="search" placeholder="Search for a product" value={searchValue} onChange={(e)=>{
+                        setSearchedValue(e.target.value)
+                    }} />
                     <button className="text-2xl cursor-pointer"><FiSearch /></button>
                 </form>
                 </div>
@@ -28,7 +32,7 @@ export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=>
                 <a className="text-[1rem] capitalize tracking-tighter m-3 font-medium" href="#">mens's</a>
                 <a className="text-[1rem] capitalize tracking-tighter m-3 font-medium" href="#">Womans</a>
             </div>
-                <h1 className="text-2xl capitalize font-bold font-sans">Your recent view</h1>
+                {searchValue? <ProductsShowCase searchedItem={searchValue} title={searchValue} titleCategory="view all"/>: <h1 className="text-2xl capitalize font-bold font-sans">Your recent view</h1>}
         </div>
     </div>
 }

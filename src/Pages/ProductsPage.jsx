@@ -1,11 +1,14 @@
 import { HeroSection } from "./Landing page/LandingPageSections/HeroSection";
 import { useQuery } from "@tanstack/react-query";
-import { productCategoryList } from "../Api data/ProductDataFetch";
+import { AllProducts, productCategoryList } from "../Api data/ProductDataFetch";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
+import { MainButton } from "../web Components/Buttons/MainButton";
 
 export const ProductsPage = () => {
     const productData = useSelector((state) => state.ProductDetails.category);
+
+    const [loadData, setLoadData] = useState(30)
 
     const [dataForFilter, setDataForFilter] = useState({
         brands: [],
@@ -19,10 +22,10 @@ export const ProductsPage = () => {
        sorting: ""
     })
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["products", productData],
-        queryFn: () => productCategoryList(productData),
-        enabled: !!productData,
-    });
+        queryKey: productData ? ["productsOfCategory", productData]: ["products",loadData],
+        queryFn: productData ? () => productCategoryList(productData) :  ()=> AllProducts(loadData),
+    })
+      
     
     useEffect(()=>{
     if (data && !isLoading && !isError) {
@@ -35,7 +38,7 @@ export const ProductsPage = () => {
 
         if (!singleBrand.includes(product.brand)) {
             product.brand?
-       singleBrand = [...singleBrand ,  product.brand]: singleBrand
+            singleBrand = [...singleBrand ,  product.brand]: singleBrand
         }else{
              product;
         }
@@ -78,9 +81,16 @@ const brandFilter = filterCmdUser.brand.length > 0? sortingFilter.filter((item)=
 : sortingFilter
 
 
+const handleLoadMoreData =()=> {
+    
+     setLoadData(loadData + 30)
+    
+}
+
 console.log(brandFilter)
     return (
         <>
+            
             <HeroSection
                 bg_link="/productPageMainImage.jpg"
                 heading="Discover Quality, Shop with Confidence"
@@ -95,13 +105,17 @@ console.log(brandFilter)
                     <div className="applied-filter"></div>
                     <div className="sort-filter flex gap-4 items-center">
                         <p className="text-[#0000009e]">{brandFilter?.length} results</p>
-                        <select name="sort" id="sort" className="p-3 border-2 border-solid border-black rounded-[0.25rem]" value={filterCmdUser.sorting} onChange={(e)=>{
+                        <select 
+                          name="sort" 
+                          id="sort" 
+                          className="p-3 border-2 border-solid border-black rounded-[0.25rem]" 
+                          value={filterCmdUser.sorting} onChange={(e)=>{
                             setFilterCmdUser((prev)=>{
                                 return{...prev, sorting: e.target.value}
                             })
                         }}>
                             
-                            <option value="most-relevant">Most Relevant</option>
+                            <option value="">Most Relevant</option>
                             <option value="price-S-to-G">Price $-$$$</option>
                             <option value="price-G-to-S">Price $$$-$</option>
                             <option value="rating-S-to-G">Rating 1-5</option>
@@ -110,7 +124,9 @@ console.log(brandFilter)
                     </div>
                 </header>
 
-                <div className="mt-8 flex">
+                <div className="mt-8 flex flex-col">
+                    <div className="flex">
+
                     <div className="filter min-h-full  p-5 grow basis-72 bg-[#f7f7f6] mr-8">
                         <div className="flex flex-col items-start w-full my-4">
                             <label htmlFor="search" className="font-medium font-sans justify-self-start">Search Product:</label>
@@ -123,7 +139,7 @@ console.log(brandFilter)
                         </div>
                         <div className="flex flex-col items-start w-full my-4">
                             <label htmlFor="range" className="font-medium font-sans justify-self-start">Price:</label>
-                            <input className= " w-full fml-2 my-4" type="range" name="range" value={filterCmdUser.price} id="range" min="0" max={dataForFilter.maxPrice}  onChange={
+                            <input className= "w-full fml-2 my-4" type="range" name="range" value={filterCmdUser.price} id="range" min="0" max={dataForFilter.maxPrice}  onChange={
                                 (e)=>{
                                     setFilterCmdUser((prev)=>{
                                         return {...prev, price: e.target.value}
@@ -168,7 +184,7 @@ console.log(brandFilter)
                             </div>
                     </div>
 
-                    <div className="productGrid grow-[2] grid grid-cols-3 grid-rows-2 gap-4">
+                    <div className="productGrid grow-[2] relative grid grid-cols-3 grid-rows-3 gap-4">
                             
                         
                         {!isLoading && !isError && data ? brandFilter.map((product, index) => (  
@@ -251,10 +267,14 @@ console.log(brandFilter)
                                    <div className="line h-[0.06rem] grow bg-[#16161645]"></div>
                                    </div>                            
    
-                                   </div>                            
-                           </div>)
-                        }):(<div className="text-black text-3xl">error</div>)}
+                                   </div>      
+                           </div>
+                           
+                        )
+                    }):(<div className="text-black text-3xl">error</div>)}
                     </div>
+                                </div>
+                    {productData? "" : <div onClick={()=> handleLoadMoreData()} className="w-full my-8 flex justify-center items-center"><MainButton text="Load more" bg="black" bgAfter="true"/></div> }                     
                 </div>
             </div>
         </>
