@@ -3,6 +3,7 @@ import { Landingpage } from "./Pages/Landing page/LandingPage"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { StructurePage } from "./Pages/StructurePage"
 import { ProductsPage } from "./Pages/ProductsPage"
+import { ProductDetailPage } from "./Pages/ProductDetailPage"
 
 
 export const App =()=> {
@@ -17,7 +18,10 @@ export const App =()=> {
         },{
           path: "/products",
           element: <ProductsPage/>
-        },
+        },{
+          path: `/products/:id`,
+          element: <ProductDetailPage/>,
+        }
       ]
     },
 

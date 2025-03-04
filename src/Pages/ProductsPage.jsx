@@ -4,6 +4,7 @@ import { AllProducts, productCategoryList } from "../Api data/ProductDataFetch";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { MainButton } from "../web Components/Buttons/MainButton";
+import { NavLink } from "react-router";
 
 export const ProductsPage = () => {
     const productData = useSelector((state) => state.ProductDetails.category);
@@ -187,8 +188,11 @@ console.log(brandFilter)
                     <div className="productGrid grow-[2] relative grid grid-cols-3 grid-rows-3 gap-4">
                             
                         
-                        {!isLoading && !isError && data ? brandFilter.map((product, index) => (  
+                        {!isLoading && !isError && data ? brandFilter.map((product, index) => (
+                            
+                            <NavLink to={`/products/${product.id}`} >
                             <div key={index} className="products flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
+                                
                                 <img className="bg-[#f7f7f6] h-72 w-auto opacity-100 transition-all duration-500 ease-in-out" src={product.thumbnail} alt={product.title} />
 
                                 <div className="p-2">
@@ -230,6 +234,7 @@ console.log(brandFilter)
                                     </div>
                                 </div>
                             </div>
+                            </NavLink>
                         )): isLoading? [...Array(6)].map((_, index)=>{
                             return(<div key={index} className=" h-fit flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
                                 <div className="bg-[#d7d7d7] h-72 w-auto">
@@ -269,14 +274,16 @@ console.log(brandFilter)
    
                                    </div>      
                            </div>
-                           
+
                         )
-                    }):(<div className="text-black text-3xl">error</div>)}
+                    }):(<div className="text-black text-3xl">error</div>)  
+                    
+                    }
                     </div>
                                 </div>
-                    {productData? "" : <div onClick={()=> handleLoadMoreData()} className="w-full my-8 flex justify-center items-center"><MainButton text="Load more" bg="black" bgAfter="true"/></div> }                     
-                </div>
-            </div>
-        </>
-    );
+                                {productData? "" : <div onClick={()=> handleLoadMoreData()} className="w-full my-8 flex justify-center items-center"><MainButton text="Load more" bg="black" bgAfter="true"/></div> }                     
+                                </div>
+                                </div>
+                                </>
+                            );
 };

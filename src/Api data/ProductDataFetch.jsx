@@ -25,3 +25,7 @@ export const searchProducts = async (searchedItem) => {
   const res = await api.get(`/products/search?q=${searchedItem}`)
   return res.data;
 }
+export const singleProductDetail = async(id)=> {
+  const res = await api.get(`/products/${id}`)
+  return res.data;
+}
