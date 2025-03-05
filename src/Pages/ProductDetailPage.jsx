@@ -2,10 +2,30 @@ import { useQuery } from "@tanstack/react-query"
 import { singleProductDetail } from "../Api data/ProductDataFetch"
 import { useParams } from "react-router";
 import { MainButton } from "../web Components/Buttons/MainButton";
+import { useEffect, useRef, useState } from "react";
 
 export const ProductDetailPage =()=> {
+  
+  const[headerVisibility, setHeaderVisibility] = useState(false)
 
-    const { id } = useParams();
+  const productHeroSection = useRef(null)
+  
+     useEffect(()=>{
+      const handleScrollHeader =()=> {
+        if (productHeroSection.current) {
+          if (productHeroSection.current.getBoundingClientRect().top <= 0 && productHeroSection.current.getBoundingClientRect().bottom <= 40) {
+              setHeaderVisibility(true)
+          }else{
+            setHeaderVisibility(false)
+          }
+        }
+      }
+          document.addEventListener('scroll', handleScrollHeader)
+         return ()=> document.removeEventListener('scroll', handleScrollHeader)
+        
+      
+     },[])
+  const { id } = useParams();
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['productDetail', id],
         queryFn: ()=>singleProductDetail(id)
@@ -18,9 +38,22 @@ export const ProductDetailPage =()=> {
    if (isError) {
         return <h1>{error}</h1>
    }
-   console.log(data)
-    return <div className="p-4">
-            <div className="heroSection h-screen flex items-start justify-evenly mt-32">
+
+   
+        return(<>    <header className={`fixed top-0 ${headerVisibility? "z-0 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>
+          <div className="product flex gap-4 items-center">
+            <img className="productImg w-20" src={data.thumbnail} />
+            <p className="font-bold text-[1.1rem]">{data.title}</p>
+          </div>
+          <nav className="flex gap-20">
+            <a href="#products" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Product Detail</a>
+            <a href="#techSpecs" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Tech Specs</a>
+            <a href="#reviews" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Reviews</a>
+          </nav>
+          <MainButton text="Add to bag"/>
+        </header>
+           <div className="p-4">
+            <div className="heroSection h-screen flex items-start justify-evenly mt-32" ref={productHeroSection}>
                 <div className="heroSection__images h-full w-full  flex justify-center items-center"><img className="h-full flex justify-center items-center" src={data.thumbnail} alt="Product image" /></div>
                 <div className="heroSection__info flex basis-[40rem] justify-start flex-col items-start">
                     <p className="p-0.5 -skew-x-12 bg-black text-[0.75rem] flex justify-center items-center uppercase text-white font-extrabold">
@@ -67,7 +100,7 @@ export const ProductDetailPage =()=> {
                 </div>
             </div>
             <div className="detailSections mt-20 px-12">
-                <div className="detailSection-info">
+                <div className="detailSection-info" id="products">
                     <h1 className="text-3xl font-extrabold text-black my-4">Product Details</h1>
                     <hr className="border-[#1a1a1a93]"/>
                     <div className="info px-24">
@@ -88,14 +121,14 @@ export const ProductDetailPage =()=> {
                         </div>
                     </div>
                 </div>
-                <div className="Tech-specs">
-                    <h1 className="text-3xl font-extrabold text-black my-4">Tech Specs</h1>
+                <div className="Tech-specs" id="techSpecs">
+                    <h1  className="text-3xl font-extrabold text-black my-4">Tech Specs</h1>
                     <hr className="border-[#1a1a1a93]"/>
                     <div className="specs px-24">
                         <div className="specsInfo flex justify-center gap-0 my-16">
                            <span className="grow flex flex-col gap-4">
                              <h2 className="bg-[#ebebeb] p-1 font-bold">Product weight</h2>
-                             <p className="text-[0.8rem]">{data.weight}KG</p>
+                             <p className="text-[0.8rem]">{data.weight}g</p>
                            </span>
                            <span className="grow flex flex-col gap-4">
                              <h2 className="bg-[#ebebeb] p-1 font-bold">Product creation</h2>
@@ -108,8 +141,8 @@ export const ProductDetailPage =()=> {
                         </div>
                     </div>
                 </div>
-                <div className="Reviews">
-                    <h1 className="text-3xl font-extrabold text-black my-4 flex items-baseline gap-2">Reviews <div className="flex">
+                <div className="Reviews" id="reviews">
+                    <h1  className="text-3xl font-extrabold text-black my-4 flex items-baseline gap-2">Reviews <div className="flex">
                      {[...Array(5)].map((_, index) => {
                           const ratingData = data.rating;
                                return (
@@ -190,4 +223,4 @@ export const ProductDetailPage =()=> {
                 </div>
             </div>
          </div>
-}
+</>)}

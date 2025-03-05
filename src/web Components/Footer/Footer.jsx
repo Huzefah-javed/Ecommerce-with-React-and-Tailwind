@@ -63,7 +63,7 @@ export const Footer =()=>{
             Data: ["Corporate Sales","Pro Program","Military Discount","Educational Discount","Global Distribution Partners","BD Affiliate Program"]
         }
     ]
-    return <div className="bg-black p-6 pt-10">
+    return <div className="bg-black p-6 pt-10 relative z-20">
 
                 <div className="service text-white flex w-full justify-evenly items-center mt-8 mb-28">
                     {  
