@@ -1,33 +1,43 @@
+import { NavLink } from "react-router";
+import { addProductCategoryData } from "../../../Store";
+import { useDispatch } from "react-redux";
+
 export const ProductsCategories =()=>{
 
+    const dispatch = useDispatch()
     const products = [
         {
-            name : "Beauty",
+            name : "beauty",
             imageLink : "beauty category.jpg"
         },
         {
-            name : "home decoration",
+            name : "home-decoration",
             imageLink : "home decoration.jpg"
         },
         {
-            name : "Laptops",
+            name : "laptops",
             imageLink : "laptops category.jpg"
         },
         {
-            name : "smartPhone",
+            name : "smartphones",
             imageLink : "smartPhone category.jpg"
         }
     ]
+
+    const handleDataFetch =(productCategory)=> {
+            
+                dispatch(addProductCategoryData(productCategory))        
+            }
 
     return <div className="w-full flex flex-col justify-between items-center relative z-10 pb-28">
         <div className="w-full flex justify-evenly ali">
            {
             products.map((product, index) => {
-                return( 
-                       <div key={index} className="group relative min-h-72 max-w-64 products-category-basic-style">
+                           return( 
+                               <NavLink to="/products" onClick={()=>handleDataFetch(product.name)} key={index} className="group relative min-h-72 max-w-64 products-category-basic-style">
                           <h2 className="product-category-h1-style text-shadow text-[1.2rem]">{product.name}</h2>
                           <img className="product-category-image-style" src={product.imageLink} alt={product.name} />
-                        </div>
+                        </NavLink>
                         )
             })
            }

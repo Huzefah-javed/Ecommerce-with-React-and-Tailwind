@@ -3,9 +3,12 @@ import { singleProductDetail } from "../Api data/ProductDataFetch"
 import { useParams } from "react-router";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { useEffect, useRef, useState } from "react";
+import { addToCartData } from "../Store";
+import { useDispatch } from "react-redux";
 
 export const ProductDetailPage =()=> {
   
+  const dispatch = useDispatch()
   const[headerVisibility, setHeaderVisibility] = useState(false)
 
   const productHeroSection = useRef(null)
@@ -39,6 +42,9 @@ export const ProductDetailPage =()=> {
         return <h1>{error}</h1>
    }
 
+   const handleAddToCart = (data)=> {
+    dispatch(addToCartData(data))
+   }
    
         return(<>    <header className={`fixed top-0 ${headerVisibility? "z-0 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>
           <div className="product flex gap-4 items-center">
@@ -50,10 +56,10 @@ export const ProductDetailPage =()=> {
             <a href="#techSpecs" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Tech Specs</a>
             <a href="#reviews" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Reviews</a>
           </nav>
-          <MainButton text="Add to bag"/>
+          <div onClick={()=>{handleAddToCart(data)}} className="w-[12rem]"><MainButton paddingLR={true} text="Add to bag"/></div>
         </header>
-           <div className="p-4">
-            <div className="heroSection h-screen flex items-start justify-evenly mt-32" ref={productHeroSection}>
+           <div className="p-4 opacityAnimation">
+            <div className="heroSection h-screen flex items-start justify-evenly mt-48" ref={productHeroSection}>
                 <div className="heroSection__images h-full w-full  flex justify-center items-center"><img className="h-full flex justify-center items-center" src={data.thumbnail} alt="Product image" /></div>
                 <div className="heroSection__info flex basis-[40rem] justify-start flex-col items-start">
                     <p className="p-0.5 -skew-x-12 bg-black text-[0.75rem] flex justify-center items-center uppercase text-white font-extrabold">
@@ -94,7 +100,7 @@ export const ProductDetailPage =()=> {
 
                      <div className="cartButtons my-8 w-full flex justify-start gap-4 items-stretch">
                         <button className="flex gap-2 justify-center items-center border-[0.5px] px-4"><span className="text-2xl">-</span>1<span className="text-2xl">+</span></button>
-                        <div className="grow-[2]"><MainButton text="Add to bag" paddingLR={true}/></div>
+                        <div onClick={()=>{handleAddToCart(data)}} className="grow-[2]"><MainButton text="Add to bag" paddingLR={true}/></div>
                         <button className="border-[0.5px] px-4">Buy Local</button> 
                      </div>
                 </div>

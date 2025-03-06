@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import { StructurePage } from "./Pages/StructurePage"
 import { ProductsPage } from "./Pages/ProductsPage"
 import { ProductDetailPage } from "./Pages/ProductDetailPage"
+import { Cart } from "./Pages/Cart"
 
 
 export const App =()=> {
@@ -21,6 +22,9 @@ export const App =()=> {
         },{
           path: `/products/:id`,
           element: <ProductDetailPage/>,
+        },{
+          path: "/cart",
+          element: <Cart/>
         }
       ]
     },

@@ -90,7 +90,7 @@ const handleLoadMoreData =()=> {
 
 console.log(brandFilter)
     return (
-        <>
+        <div className="opacityAnimation">
             
             <HeroSection
                 bg_link="/productPageMainImage.jpg"
@@ -193,7 +193,7 @@ console.log(brandFilter)
                             <NavLink to={`/products/${product.id}`} >
                             <div key={index} className="products flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
                                 
-                                <img className="bg-[#f7f7f6] h-72 w-auto opacity-100 transition-all duration-500 ease-in-out" src={product.thumbnail} alt={product.title} />
+                                <img className="bg-[#f7f7f6] h-72 w-auto opacityAnimation" src={product.thumbnail} alt={product.title} />
 
                                 <div className="p-2">
                                     <div className="flex justify-between items-center">
@@ -203,7 +203,7 @@ console.log(brandFilter)
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
                                             {product.images.map((singleImage, id) => (
                                                 <div key={id} className="w-8 ml-2 border-[1px] border-[#16161645]">
-                                                    <img src={singleImage} alt="Product Image" />
+                                                    <img className="opacityAnimation" src={singleImage} alt="Product Image" />
                                                 </div>
                                             ))}
                                         </div>
@@ -284,6 +284,6 @@ console.log(brandFilter)
                                 {productData? "" : <div onClick={()=> handleLoadMoreData()} className="w-full my-8 flex justify-center items-center"><MainButton text="Load more" bg="black" bgAfter="true"/></div> }                     
                                 </div>
                                 </div>
-                                </>
+                                </div>
                             );
 };

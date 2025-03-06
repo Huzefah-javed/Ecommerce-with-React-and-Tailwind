@@ -55,4 +55,19 @@
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
 }
-  
+
+.opacityAnimation{
+    animation: opacityAnimation 0.5s  ease-in-out forwards;
+    -webkit-animation: opacityAnimation 1s  ease-in-out forwards;
+}
+
+@keyframes opacityAnimation {
+    0%{
+        background: #000;
+        opacity: 0;
+    }
+    100%{
+        
+        opacity: 1;
+    }
+}
