@@ -2,19 +2,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { DeleteAddToCart } from "../Store";
+import { useState } from "react";
 
 
 export const Cart = ()=> {
+    
+
     const dispatch = useDispatch()
     const data = useSelector((state)=>state.ProductDetails.cartData)
         console.log(data)
+
         let totalPrice = 0
 
         const handleDeleteCart = (id) => {
            dispatch(DeleteAddToCart(id))
-
         }
-
         return (
             <div className="p-4 opacityAnimation">
             <div className="mt-48">
@@ -22,7 +24,6 @@ export const Cart = ()=> {
                 <div className="cartDetail relative flex gap-8">
                     <div className="products flex flex-col gap-4 grow border-t-[1px] p-8">
                         {data.map((product, index)=>{
-                            
                                   totalPrice += product.price
                             return <div className="flex product-box-shadow rounded-2xl">
 
@@ -37,9 +38,9 @@ export const Cart = ()=> {
                                         <p className="text-sm my-2 text-gray-600">Unit price:{product.price}</p>
                                         <div className="mt-8  ml-36 w-full flex gap-8 justify-end text-sm text-gray-600">
                                             <span className=" flex items-center  gap-4">
-                                            <button className=" h-[2.5rem] w-[2.5rem] bg-[#cfcfcf] font-bold text-[1.1rem]">-</button>
-                                            <p className="text-[1rem]">1</p>
-                                            <button  className="h-[2.5rem] w-[2.5rem] bg-[#cfcfcf] font-bold text-[1.1rem]">+</button>
+                                            <button onClick={()=>handleQuantity("dec", product.id)} disabled={product.quantity <= 1} className="disabled:text-[#ababab] h-[2.5rem] w-[2.5rem] bg-[#cfcfcf] font-bold text-[1.1rem]">-</button>
+                                            <p className="text-[1rem]">{product.quantity}</p>
+                                            <button onClick={()=>handleQuantity("inc", product.id)} className="h-[2.5rem] w-[2.5rem] bg-[#cfcfcf] font-bold text-[1.1rem]">+</button>
                                             </span>
                                             <span className="font-bold text-[1.3rem] text-black">
                                                 ${product.price}

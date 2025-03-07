@@ -2,7 +2,7 @@ import { HeroSection } from "./Landing page/LandingPageSections/HeroSection";
 import { useQuery } from "@tanstack/react-query";
 import { AllProducts, productCategoryList } from "../Api data/ProductDataFetch";
 import { useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { NavLink } from "react-router";
 
@@ -55,40 +55,38 @@ export const ProductsPage = () => {
 
     console.log(filterCmdUser)
         
-    const SearchFilter = filterCmdUser.search && data ? data.products.filter((item)=>{
+    const SearchFilter = useMemo(()=> filterCmdUser.search && data ? data.products.filter((item)=>{
         return item.title.toUpperCase().includes(filterCmdUser.search.toUpperCase())
-}): data?.products || []
+}): data?.products || [])
 
-const priceFilter = filterCmdUser.price? SearchFilter.filter((item)=>{
+const priceFilter = useMemo (()=> filterCmdUser.price? SearchFilter.filter((item)=>{
     return item.price > filterCmdUser.price
-}): SearchFilter
+}): SearchFilter)
 
 let sortingFilter;
 if (filterCmdUser.sorting === "price-S-to-G") {
-    sortingFilter =  priceFilter.sort((a, b)=>{ return a.price - b.price})
+    sortingFilter = useMemo(()=>  priceFilter.sort((a, b)=>{ return a.price - b.price}))
 }else if (filterCmdUser.sorting === "price-G-to-S") {
-    sortingFilter =  priceFilter.sort((a, b)=>{ return b.price - a.price})
+    sortingFilter =  useMemo(()=> priceFilter.sort((a, b)=>{ return b.price - a.price}))
   } else if (filterCmdUser.sorting === "rating-S-to-G") {
-    sortingFilter =  priceFilter.sort((a, b)=>{ return a.rating - b.rating})
+    sortingFilter =  useMemo(()=> priceFilter.sort((a, b)=>{ return a.rating - b.rating}))
   }else if (filterCmdUser.sorting === "rating-G-to-S") {
-    sortingFilter =  priceFilter.sort((a, b)=>{ return b.rating - a.rating})
+    sortingFilter = useMemo(()=> priceFilter.sort((a, b)=>{ return b.rating - a.rating}))
   }else sortingFilter = priceFilter
                     
-const brandFilter = filterCmdUser.brand.length > 0? sortingFilter.filter((item)=>{
+const brandFilter = useMemo(()=> filterCmdUser.brand.length > 0? sortingFilter.filter((item)=>{
             return filterCmdUser.brand.some((userChoiceBrand)=>{
                 return item.brand === userChoiceBrand
             })
 })
-: sortingFilter
+: sortingFilter)
 
 
-const handleLoadMoreData =()=> {
+const handleLoadMoreData =useCallback(()=> {
     
      setLoadData(loadData + 30)
     
-}
-
-console.log(brandFilter)
+},[])
     return (
         <div className="opacityAnimation">
             
@@ -193,7 +191,7 @@ console.log(brandFilter)
                             <NavLink to={`/products/${product.id}`} >
                             <div key={index} className="products flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
                                 
-                                <img className="bg-[#f7f7f6] h-72 w-auto opacityAnimation" src={product.thumbnail} alt={product.title} />
+                                <img className="bg-[#f7f7f6] h-72 w-auto opacityAnimation" src={product.thumbnail} alt={product.title} loading="lazy" />
 
                                 <div className="p-2">
                                     <div className="flex justify-between items-center">
@@ -203,7 +201,7 @@ console.log(brandFilter)
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
                                             {product.images.map((singleImage, id) => (
                                                 <div key={id} className="w-8 ml-2 border-[1px] border-[#16161645]">
-                                                    <img className="opacityAnimation" src={singleImage} alt="Product Image" />
+                                                    <img className="opacityAnimation" src={singleImage} alt="Product Image" loading="lazy"/>
                                                 </div>
                                             ))}
                                         </div>

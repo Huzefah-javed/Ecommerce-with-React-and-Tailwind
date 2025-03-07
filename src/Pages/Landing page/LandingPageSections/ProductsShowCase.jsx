@@ -22,7 +22,7 @@ export const ProductsShowCase = ({searchedItem, title, titleCategory})=>{
                                 <NavLink to={`/products/${product.id}`}>
 
             <div key={index} className="custom-product flex flex-col min-w-72 cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
-                                <img className="bg-[#f7f7f6] h-72 w-auto opacity-100 transition-all duration-500 ease-in-out" src={product.thumbnail} alt={product.title} />
+                                <img loading="lazy" className="bg-[#f7f7f6] h-72 w-auto opacity-100 transition-all duration-500 ease-in-out" src={product.thumbnail} alt={product.title} />
 
                                 <div className="p-2">
                                     <div className="flex justify-between items-center">
@@ -32,7 +32,7 @@ export const ProductsShowCase = ({searchedItem, title, titleCategory})=>{
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
                                             {product.images.map((singleImage, id) => (
                                                 <div key={id} className="w-8 ml-2 border-[1px] border-[#16161645]">
-                                                    <img src={singleImage} alt="Product Image" />
+                                                    <img src={singleImage} alt="Product Image" loading="lazy" />
                                                 </div>
                                             ))}
                                         </div>
