@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
 import { singleProductDetail } from "../Api data/ProductDataFetch"
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { useEffect, useRef, useState } from "react";
 import { addToCartData } from "../Store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { FaCheckCircle } from "react-icons/fa";
+import { IoCloseOutline } from "react-icons/io5";
 
 export const ProductDetailPage =()=> {
   
@@ -12,9 +14,11 @@ export const ProductDetailPage =()=> {
 
   const[headerVisibility, setHeaderVisibility] = useState(false)
   const [productDetails, setProductDetails] = useState(null)
-  
+  const [addToCartNotify,setAddToCartNotify] = useState(false)
   const productHeroSection = useRef(null)
   
+  const cartData = useSelector((state)=>state.ProductDetails.cartData)
+
      useEffect(()=>{
       const handleScrollHeader =()=> {
         if (productHeroSection.current) {
@@ -43,7 +47,7 @@ export const ProductDetailPage =()=> {
      },[data])
       
       if (isLoading) {
-        return <h1>loading...</h1>
+        return <div className="h-dvh flex justify-center items-center"><div className="loader"></div></div>
    }
    
    if (isError) {
@@ -58,17 +62,34 @@ export const ProductDetailPage =()=> {
         })
       }else{
         setProductDetails((prev)=>{
-          return {...prev, quantity: prev.quantity - 1, price: parseFloat((Number(prev.price) / prev.quantity - Number(prev.price)).toFixed(2))}
+          return {...prev, quantity: prev.quantity - 1, price: parseFloat(Number(prev.price)-(Number(prev.price) / prev.quantity).toFixed(2))}
         })
 
     }
    }
 
-   console.log(productDetails)
+
    const handleAddToCart = (productDetails)=> {
-    dispatch(addToCartData(productDetails))
+    const itemExists = cartData.some((item) => item.id === productDetails.id);
+
+    if (!itemExists) {
+      dispatch(addToCartData(productDetails));
+      console.log("Product Added");
+      setAddToCartNotify(true);
+      scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    } else {
+      alert("Product already in cart");
    }
+  }
    
+  const handleCloseAddToCartNotify=()=>{
+    setAddToCartNotify(false)
+  }
+
+
         return(<>    <header className={`fixed top-0 ${headerVisibility? "z-20 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>
           <div className="product flex gap-4 items-center">
             <img className="productImg w-20" src={data.thumbnail} />
@@ -81,7 +102,19 @@ export const ProductDetailPage =()=> {
           </nav>
           <div onClick={()=>{handleAddToCart(data)}} className="w-[12rem]"><MainButton paddingLR={true} text="Add to bag"/></div>
         </header>
-           <div className="p-4 opacityAnimation">
+        <div className={`cart-checkout absolute top-[20%] right-4 transition-all duration-200 ease-in ${addToCartNotify? "z-50 opacity-100 visible": "-z-50 opacity-0 invisible"} bg-white box-shadow p-6 flex flex-col items-center`}>
+          <div className="cart-checkout__header flex justify-between items-center w-full py-4 px-
+          6">
+            <span className="flex items-center justify-start gap-1"><FaCheckCircle className="text-amber-700" /> <span className="font-bold">Added To bag</span></span>
+            <span className="text-2xl cursor-pointer" onClick={()=>handleCloseAddToCartNotify()}><IoCloseOutline/></span>
+            </div>
+            <div className="cart-checkout-body flex items-center justify-center gap-2">
+              <img className="w-20" src={productDetails?.thumbnail} />
+              <h1>{productDetails?.title}</h1>
+            </div>
+            <NavLink to="/cart" className="w-full text-center"><MainButton text="Checkout Bag"/></NavLink>
+        </div>
+           <div className={`p-4 opacityAnimation before:transition-all before:duration-200 before:ease-in ${addToCartNotify? "before:absolute before:z-10 before:h-full before:w-full before:bg-[#00000062]": ""}`}>
             <div className="heroSection h-screen flex items-start justify-evenly mt-48" ref={productHeroSection}>
                 <div className="heroSection__images h-full w-full  flex justify-center items-center"><img className="h-full flex justify-center items-center" src={productDetails?.thumbnail} alt="Product image" /></div>
                 <div className="heroSection__info flex basis-[40rem] justify-start flex-col items-start">
@@ -109,7 +142,7 @@ export const ProductDetailPage =()=> {
                               })}
                               <p className="ml-3 underline text-[0.85rem]">{productDetails?.rating}({productDetails?.reviews.length})</p>
                      </div>
-                     <p className="text-3xl py-4">${productDetails?.price} <span className="text-[1rem]">USD</span></p>
+                     <p className="text-3xl py-4">${(productDetails?.price / productDetails?.quantity).toFixed(2)} <span className="text-[1rem]">USD</span></p>
                      <p className= "py-4 font-sans">{productDetails?.description}</p>
 
                      <div className="size">
@@ -122,7 +155,7 @@ export const ProductDetailPage =()=> {
                      </div>
 
                      <div className="cartButtons my-8 w-full flex justify-start gap-4 items-stretch">
-                        <button className="flex gap-2 justify-center items-center border-[0.5px] px-4"><button disabled={productDetails?.quantity <= 1} onClick={()=>handleQuantity("dec")} className="text-2xl disabled:text-gray-400">-</button>{productDetails?.quantity}<button onClick={()=>handleQuantity("inc")} className="text-2xl">+</button></button>
+                        <button className="flex gap-2 justify-center items-center border-[0.5px] px-4"><button disabled={productDetails?.quantity <= 1} onClick={()=>handleQuantity("dec")} className="text-2xl disabled:text-gray-400">-</button>{productDetails?.quantity}<button disabled={productDetails?.quantity >= productDetails?.minimumOrderQuantity } onClick={()=>handleQuantity("inc")} className="disabled:text-gray-400 text-2xl">+</button></button>
                         <div onClick={()=>{handleAddToCart(productDetails)}} className="grow-[2]"><MainButton text="Add to bag" paddingLR={true}/></div>
                         <button className="border-[0.5px] px-4">Buy Local</button> 
                      </div>

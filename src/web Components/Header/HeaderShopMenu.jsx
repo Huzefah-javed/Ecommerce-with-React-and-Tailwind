@@ -35,10 +35,10 @@ export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
                 <h1 className={`text-2xl capitalize font-bold font-sans transition-all duration-200 ease-in-out ${shopMenuActive? "mt-28":"mt-40" } mb-12`}>Shop All Category</h1>
                 <div className={`main grid grid-cols-5 gap-y-4 grid-rows-5 ml-8 transition-all duration-300 ease-in-out`}>
                     {
-                       isLoading? (<div>Loading.....</div>) : !error? data?.map((individualCategory, index)=>{
+                       isLoading? (<div className="h-dvh flex justify-center items-center"><div className="loader"></div></div>) : !error? data?.map((individualCategory, index)=>{
                             return (<div key={index} className="group max-w-8 flex items-center justify-around cursor-pointer text-[1.2rem] capitalize tracking-tighter m-1 font-medium"><NavLink to="/products" onClick={()=>handleDataFetch(individualCategory.slug)} className="max-w-20 mr-4">{individualCategory.name}</NavLink><img className="w-[1rem] transition-all duration-500 ease-in-out group-hover:translate-x-4" src="arrow image.png" alt="arrow image"/></div>)
 
-                    }): (<div>{error}</div>)
+                    }): (<div className="h-full flex justify-center item-center"><span className="text-3xl font-bold">{error}</span></div>)
                     }
 
                 </div>
