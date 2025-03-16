@@ -9,20 +9,20 @@ export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=>
         setSearchMenuActive(false)
     }
 
-    return <div className={`fixed -top-0 left-0 h-dvh w-dvw bg-white p-8 transition-all duration-300 ease-in-out  ${searchMenuActive? "opacity-100 z-50 visible": "opacity-0 -z-50 invisible"} overflow-y-scroll`}>
-         <header className=" w-full h-24 flex justify-between items-center fixed top-0 bg-white pt-4">
+    return <div className={`fixed -top-0 left-0 h-dvh w-dvw bg-white md:p-8 p-4 transition-all duration-300 ease-in-out  ${searchMenuActive? "opacity-100 z-50 visible": "opacity-0 -z-50 invisible"} overflow-y-scroll`}>
+         <header className=" w-full h-24 flex justify-between items-center fixed top-0  bg-white pt-4">
            
                 <div className="flex">
                     
                 <img className="w-10" src="Logo.png" alt="logo" />
-                <form className="row-span-2 w-[35rem] h-14 p-2 flex justify-center items-center ml-10 border-2 border-black border-solid self-center justify-self-stretch">
+                <form className="row-span-2 md:w-[35rem] w-auto h-14 p-2 flex justify-center items-center md:ml-10 ml-2 border-2 border-black border-solid self-center justify-self-stretch">
                     <input className="border-none outline-none grow-[2] bg-white focus:bg-white" type="text" name="text" id="search" placeholder="Search for a product" value={searchValue} onChange={(e)=>{
                         setSearchedValue(e.target.value)
                     }} />
                     <button className="text-2xl cursor-pointer"><FiSearch /></button>
                 </form>
                 </div>
-             <button onClick={()=>handleSearchMenuClose()} className=" h-fit w-fit text-[1.4rem] box-shadow p-2 cursor-pointer mr-10"><GrClose /></button>
+             <button onClick={()=>handleSearchMenuClose()} className=" h-fit w-fit text-[1.4rem] box-shadow p-2 cursor-pointer md:mr-10 mr-6"><GrClose /></button>
         </header>
         <div className={`main ${searchMenuActive? "mt-24": "mt-36"} transition-all duration-300 ease-in-out`}>
             <div className="search-suggestion flex flex-col ml-16 mb-18">

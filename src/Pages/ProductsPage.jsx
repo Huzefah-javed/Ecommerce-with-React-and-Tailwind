@@ -2,9 +2,10 @@ import { HeroSection } from "./Landing page/LandingPageSections/HeroSection";
 import { useQuery } from "@tanstack/react-query";
 import { AllProducts, productCategoryList } from "../Api data/ProductDataFetch";
 import { useSelector } from "react-redux";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, tate, useState } from "react";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { NavLink } from "react-router";
+import { HiOutlineFilter } from "react-icons/hi";
 
 export const ProductsPage = () => {
     const productData = useSelector((state) => state.ProductDetails.category);
@@ -52,41 +53,38 @@ export const ProductsPage = () => {
 
     }
 },[data])
-
-    console.log(filterCmdUser)
         
-    const SearchFilter = useMemo(()=> filterCmdUser.search && data ? data.products.filter((item)=>{
+    const SearchFilter = filterCmdUser.search && data ? data.products.filter((item)=>{
         return item.title.toUpperCase().includes(filterCmdUser.search.toUpperCase())
-}): data?.products || [])
+}): data?.products || []
 
-const priceFilter = useMemo (()=> filterCmdUser.price? SearchFilter.filter((item)=>{
+const priceFilter =  filterCmdUser.price? SearchFilter.filter((item)=>{
     return item.price > filterCmdUser.price
-}): SearchFilter)
+}): SearchFilter
 
 let sortingFilter;
 if (filterCmdUser.sorting === "price-S-to-G") {
-    sortingFilter = useMemo(()=>  priceFilter.sort((a, b)=>{ return a.price - b.price}))
+    sortingFilter =  priceFilter.sort((a, b)=>{ return a.price - b.price})
 }else if (filterCmdUser.sorting === "price-G-to-S") {
-    sortingFilter =  useMemo(()=> priceFilter.sort((a, b)=>{ return b.price - a.price}))
+    sortingFilter =  priceFilter.sort((a, b)=>{ return b.price - a.price})
   } else if (filterCmdUser.sorting === "rating-S-to-G") {
-    sortingFilter =  useMemo(()=> priceFilter.sort((a, b)=>{ return a.rating - b.rating}))
+    sortingFilter =  priceFilter.sort((a, b)=>{ return a.rating - b.rating})
   }else if (filterCmdUser.sorting === "rating-G-to-S") {
-    sortingFilter = useMemo(()=> priceFilter.sort((a, b)=>{ return b.rating - a.rating}))
+    sortingFilter = priceFilter.sort((a, b)=>{ return b.rating - a.rating})
   }else sortingFilter = priceFilter
                     
-const brandFilter = useMemo(()=> filterCmdUser.brand.length > 0? sortingFilter.filter((item)=>{
+const brandFilter = filterCmdUser.brand.length > 0? sortingFilter.filter((item)=>{
             return filterCmdUser.brand.some((userChoiceBrand)=>{
                 return item.brand === userChoiceBrand
             })
 })
-: sortingFilter)
+: sortingFilter
 
 
-const handleLoadMoreData =useCallback(()=> {
-    
+const handleLoadMoreData =()=>{     
      setLoadData(loadData + 30)
     
-},[])
+}
     return (
         <div className="opacityAnimation">
             
@@ -98,9 +96,9 @@ const handleLoadMoreData =useCallback(()=> {
                 height="95vh"
             />
 
-            <div className="w-full px-12 pb-16">
+            <div className="w-full px-6 md:px-12 pb-16">
                 <header className="flex justify-between">
-                    <h1 className="text-3xl font-[600] font-sans capitalize">{productData} result</h1>
+                    <h1 className="text-3xl font-[600] font-sans capitalize">{window.innerWidth > 768?<div>{productData} result</div>: <button className="flex gap-2 text-[1.5rem]"><HiOutlineFilter /><h1>Filter</h1></button>}</h1>
                     <div className="applied-filter"></div>
                     <div className="sort-filter flex gap-4 items-center">
                         <p className="text-[#0000009e]">{brandFilter?.length} results</p>
@@ -124,74 +122,95 @@ const handleLoadMoreData =useCallback(()=> {
                 </header>
 
                 <div className="mt-8 flex flex-col">
-                    <div className="flex">
-
-                    <div className="filter min-h-full  p-5 grow basis-72 bg-[#f7f7f6] mr-8">
-                        <div className="flex flex-col items-start w-full my-4">
-                            <label htmlFor="search" className="font-medium font-sans justify-self-start">Search Product:</label>
-
-                            <input className="w-full border-black border-[1px] outline-none grow-[2] bg-white focus:bg-white p-2 ml-2 my-4" placeholder="Search products.." type="search" name="search" id="search" value={filterCmdUser.search} onChange={(e)=>{
-                                setFilterCmdUser((prev)=>{
-                                    return {...prev, search: e.target.value}
-                                    })
-                            }} />
-                        </div>
-                        <div className="flex flex-col items-start w-full my-4">
-                            <label htmlFor="range" className="font-medium font-sans justify-self-start">Price:</label>
-                            <input className= "w-full fml-2 my-4" type="range" name="range" value={filterCmdUser.price} id="range" min="0" max={dataForFilter.maxPrice}  onChange={
-                                (e)=>{
-                                    setFilterCmdUser((prev)=>{
-                                        return {...prev, price: e.target.value}
-                                    })
-                                }
-                            }/>
-                            <div className="w-full flex justify-between">
-                                <div className="minPrice text-[1rem]">${filterCmdUser.price}</div>
-                                <div className="maxPrice text-[1rem]">${dataForFilter.maxPrice}</div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col items-start w-full">
-                            <div className="font-medium font-sans justify-self-start my-4">Brands:</div>
-                            {dataForFilter.brands.length > 0? dataForFilter.brands.map(checkboxData =>{
-                                return(<div className="flex gap-2 items-center ml-2 my-2">
-                                <input className="size-5 border-[0.5px] border-black border-solid" type="checkbox" id={checkboxData} name="checkbox" value={checkboxData} onChange={(e)=>{setFilterCmdUser((prev)=>{
-                                    if (e.target.checked) {
-                                        
-                                        return {...prev, brand: [...prev.brand, e.target.value]}
-                                    }else{
-                                        return {...prev, brand: prev.brand.filter((item)=>{
-                                            return item !== e.target.value
-                                    })}
-                                    }
-                            })}}/> <label className="font-sans text-black" htmlFor={checkboxData}>{checkboxData}</label>
-                                    </div>
-                                )
-                            }
-                        ): (<div className="font-medium font-sans text-black my-4">No any brand found</div>)
+                <div className="flex">
+  
+         <div className="filter absolute top-0 left-0 -z-50 md:z-10 w-full md:static min-h-full p-4 grow basis-72 bg-[#f7f7f6] mr-8">
+    <div className="flex flex-col items-start relative z-50 w-full my-4">
+      <label htmlFor="search" className="font-medium font-sans justify-self-start">
+        Search Product:
+      </label>
+      <input
+        className="w-full border-black border-[1px] outline-none grow-[2] bg-white focus:bg-white p-2 ml-2 my-4"
+        placeholder="Search products.."
+        type="search"
+        name="search"
+        id="search"
+        value={filterCmdUser.search}
+        onChange={(e) => {
+          setFilterCmdUser((prev) => {
+            return { ...prev, search: e.target.value };
+          });
+        }}
+      />
+    </div>
+    <div className="flex flex-col items-start w-full my-4">
+      <label htmlFor="range" className="font-medium font-sans justify-self-start">Price:</label>
+      <input
+        className="w-full fml-2 my-4"
+        type="range"
+        name="range"
+        value={filterCmdUser.price}
+        id="range"
+        min="0"
+        max={dataForFilter.maxPrice}
+        onChange={(e) => {
+          setFilterCmdUser((prev) => {
+            return { ...prev, price: e.target.value };
+          });
+        }}
+      />
+      <div className="w-full flex justify-between">
+        <div className="minPrice text-[1rem]">${filterCmdUser.price}</div>
+        <div className="maxPrice text-[1rem]">${dataForFilter.maxPrice}</div>
+      </div>
+    </div>
+    <div className="flex flex-col items-start w-full">
+      <div className="font-medium font-sans justify-self-start my-4">Brands:</div>
+      {dataForFilter.brands.length > 0 ? (
+        dataForFilter.brands.map((checkboxData) => {
+          return (
+            <div key={checkboxData} className="flex gap-2 items-center ml-2 my-2">
+              <input
+                className="size-5 border-[0.5px] border-black border-solid"
+                type="checkbox"
+                id={checkboxData}
+                name="checkbox"
+                value={checkboxData}
+                onChange={(e) => {
+                  setFilterCmdUser((prev) => {
+                    if (e.target.checked) {
+                      return { ...prev, brand: [...prev.brand, e.target.value] };
+                    } else {
+                      return {
+                        ...prev,
+                        brand: prev.brand.filter((item) => {
+                          return item !== e.target.value;
+                        }),
+                      };
                     }
-                        </div>
-                        <div className="reviews flex flex-col">
-                            <div className="font-medium font-sans justify-self-start my-4">Review Sorting:</div>
-                        <div className="flex gap-2 ml-2 my-2">
-                                <input className="size-5 border-[0.5px] border-black border-solid" type="checkbox" id="less-review" name="checkbox" 
-                                /> <label className="font-sans text-black" htmlFor="less-review">Less reviews product</label>
-                         </div>
-                         <div className="flex gap-2  ml-2 my-2">
-                           <input className="size-5 border-[0.5px] border-black border-solid" type="checkbox" id="more-review" name="checkbox"/> <label className="font-sans text-black" htmlFor="more-review">More reviews product</label>     
-                         </div>
-                                
-                            </div>
-                    </div>
-
-                    <div className="productGrid grow-[2] relative grid grid-cols-3 grid-rows-3 gap-4">
+                  });
+                }}
+              />
+              <label className="font-sans text-black" htmlFor={checkboxData}>
+                {checkboxData}
+              </label>
+            </div>
+          );
+        })
+      ) : (
+        <div className="font-medium font-sans text-black my-4">No brand found</div>
+      )}
+    </div>
+      </div>
+                    <div className="productGrid grow-[2] relative grid grid-cols-2 md:grid-cols-3 grid-rows-3 gap-4">
                             
                         
                         {!isLoading && !isError && data ? brandFilter.map((product, index) => (
                             
                             <NavLink to={`/products/${product.id}`} >
-                            <div key={index} className="products flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
+                            <div key={index} className="products overflow-hidden flex flex-col cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
                                 
-                                <img className="bg-[#f7f7f6] h-72 w-auto opacityAnimation" src={product.thumbnail} alt={product.title} loading="lazy" />
+                                <img className="bg-[#f7f7f6] md:h-72 h-40 w-auto opacityAnimation" src={product.thumbnail} alt={product.title} loading="lazy" />
 
                                 <div className="p-2">
                                     <div className="flex justify-between items-center">
@@ -200,7 +219,7 @@ const handleLoadMoreData =useCallback(()=> {
                                         </p>
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
                                             {product.images.map((singleImage, id) => (
-                                                <div key={id} className="w-8 ml-2 border-[1px] border-[#16161645]">
+                                                <div key={id} className="md:w-8 w-4 ml-2 border-[1px] border-[#16161645]">
                                                     <img className="opacityAnimation" src={singleImage} alt="Product Image" loading="lazy"/>
                                                 </div>
                                             ))}
@@ -209,7 +228,7 @@ const handleLoadMoreData =useCallback(()=> {
                                     <p className="text-black font-sans text-[1.1rem] capitalize py-2">{product.title}</p>
                                     <p className="text-black text-[0.85rem]">${product.price} <span className="text-[0.65rem]">({product.discountPercentage}% discount)</span></p>
 
-                                    <div className="starMain flex items-center mt-8 mb-4">
+                                    <div className="starMain flex flex-col md:flex-row items-start md:items-center mt-8 mb-4">
                                         <div className="stars flex">
                                             {[...Array(5)].map((_, index) => {
                                                 const ratingData = product.rating;
@@ -228,7 +247,7 @@ const handleLoadMoreData =useCallback(()=> {
                                                 );
                                             })}
                                         </div>
-                                        <div className="line h-[0.06rem] grow bg-[#16161645]"></div>
+                                        <div className="w-full mt-4 md:mt-0 line h-[0.06rem] grow bg-[#16161645]"></div>
                                     </div>
                                 </div>
                             </div>
@@ -283,5 +302,6 @@ const handleLoadMoreData =useCallback(()=> {
                                 </div>
                                 </div>
                                 </div>
-                            );
+                       
+    );
 };

@@ -7,6 +7,7 @@ import { addToCartData } from "../Store";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export const ProductDetailPage =()=> {
   
@@ -15,15 +16,20 @@ export const ProductDetailPage =()=> {
   const[headerVisibility, setHeaderVisibility] = useState(false)
   const [productDetails, setProductDetails] = useState(null)
   const [addToCartNotify,setAddToCartNotify] = useState(false)
+  const[lastPointScrollProductImg, setLastPointScrollProductImg] = useState(0)
+  const[liveScrollProductImg, setLiveScrollProductImg] = useState(0)
   const productHeroSection = useRef(null)
+  const productImgSec = useRef(null)
   
   const cartData = useSelector((state)=>state.ProductDetails.cartData)
 
      useEffect(()=>{
-      const handleScrollHeader =()=> {
-        if (productHeroSection.current) {
+       const handleScrollHeader =()=> {
+         if (productHeroSection.current) {
+
+          console.log(productImgSec.current.scrollWidth, productImgSec.current.clientWidth , productImgSec.current.scrollLeft)
           if (productHeroSection.current.getBoundingClientRect().top <= 0 && productHeroSection.current.getBoundingClientRect().bottom <= 40) {
-              setHeaderVisibility(true)
+            setHeaderVisibility(true)
           }else{
             setHeaderVisibility(false)
           }
@@ -43,21 +49,34 @@ export const ProductDetailPage =()=> {
       useEffect(()=>{
         if (data) {
           setProductDetails({...data, quantity: 1})
-        }
+          }
      },[data])
+
+     useEffect(()=>{
+
+      const handleProductScroll =()=> {
+        setLiveScrollProductImg(productImgSec.current.scrollLeft)
+        setLastPointScrollProductImg(productImgSec.current.scrollLeft + productImgSec.current.clientWidth)
+      }
+
+      if (productImgSec.current) {
+        productImgSec.current.addEventListener("scroll", handleProductScroll)
+        
+      }
+      return ()=> productImgSec.current?.removeEventListener("scroll", handleProductScroll)
+     },[data])
+     if (isLoading) {
+       return <div className="h-dvh flex justify-center items-center"><div className="loader"></div></div>
+      }
       
-      if (isLoading) {
-        return <div className="h-dvh flex justify-center items-center"><div className="loader"></div></div>
-   }
-   
-   if (isError) {
-     return <h1>{error}</h1>
-   }
+      if (isError) {
+        return <h1>{error}</h1>
+      } 
+
    const handleQuantity = (action)=> {
     if (action === "inc") {
         setProductDetails((prev)=>{
 
-          console.log(prev.quantity, prev.price)
           return {...prev, quantity: prev.quantity + 1, price: parseFloat((Number(prev.price) / prev.quantity + Number(prev.price)).toFixed(2))}
         })
       }else{
@@ -89,20 +108,48 @@ export const ProductDetailPage =()=> {
     setAddToCartNotify(false)
   }
 
+  const handleImageScroll = (action) => {
+    if (action === "right") {
+      productImgSec.current.scrollBy({
+        left: -productImgSec.current.scrollWidth / productDetails.images.length,
+        behavior: "smooth",
+      });
+    } else {
+      productImgSec.current.scrollBy({
+        left: productImgSec.current.scrollWidth / productDetails.images.length,
+        behavior: "smooth",
+      });
+    }
+  };
+      console.log("liveScrollProductImg ",liveScrollProductImg , "lastPointScrollProductImg:",lastPointScrollProductImg, "scrollwidth:", productImgSec.current?.scrollWidth)  
 
-        return(<>    <header className={`fixed top-0 ${headerVisibility? "z-20 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>
-          <div className="product flex gap-4 items-center">
+
+        return(<>    {window.innerWidth> 769?<header className={`fixed top-0 ${headerVisibility? "z-20 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>
+          <div className="product flex md:gap-2 lg:gap-4 items-center">
             <img className="productImg w-20" src={data.thumbnail} />
-            <p className="font-bold text-[1.1rem]">{data.title}</p>
+            <p className="font-bold md:text-[0.7rem] lg:text-[1.1rem]">{data.title}</p>
           </div>
           <nav className="flex gap-20">
-            <a href="#products" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Product Detail</a>
-            <a href="#techSpecs" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Tech Specs</a>
-            <a href="#reviews" className="text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Reviews</a>
+            <a href="#products" className="md:text-[0.7rem] lg:text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Product Detail</a>
+            <a href="#techSpecs" className="md:text-[0.7rem] lg:text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Tech Specs</a>
+            <a href="#reviews" className="md:text-[0.7rem] lg:text-[1.1rem] font-bold relative before:absolute before:w-full before:h-2 before:bg-[#cd4c1d] before:top-[4rem] before:left-0 hover:before:top-[3.3rem] before:transition-all before:duration-200 before:ease-in">Reviews</a>
           </nav>
-          <div onClick={()=>{handleAddToCart(data)}} className="w-[12rem]"><MainButton paddingLR={true} text="Add to bag"/></div>
+          <div onClick={()=>{handleAddToCart(productDetails)}} className="w-[12rem]"><MainButton paddingLR={true} text="Add to bag"/></div>
         </header>
-        <div className={`cart-checkout absolute top-[20%] right-4 transition-all duration-200 ease-in ${addToCartNotify? "z-50 opacity-100 visible": "-z-50 opacity-0 invisible"} bg-white box-shadow p-6 flex flex-col items-center`}>
+        :
+         <div className={`buttons flex gap-2 fixed bottom-0 ${headerVisibility? "z-20 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full  flex justify-center px-6 py-12 `}>
+               <button className="flex gap-2 justify-center items-center border-[0.5px] px-4">
+                <button disabled={productDetails?.quantity <= 1} onClick={()=>handleQuantity("dec")} className="text-2xl disabled:text-gray-400">
+                  -
+                  </button>
+                   {productDetails?.quantity}<button disabled={productDetails?.quantity >= productDetails?.minimumOrderQuantity } onClick={()=>handleQuantity("inc")} className="disabled:text-gray-400 text-2xl">
+                    +
+                    </button>
+                   </button>
+                        <div onClick={()=>{handleAddToCart(productDetails)}} className="grow-[2]"><MainButton text="Add to bag" paddingLR={true}/></div>
+                        <button className="border-[0.5px] px-4">Buy Local</button>              
+                     </div>}
+        <div className={`cart-checkout absolute md:top-[20%] top-[10%] flex flex-col gap-4 md:right-4 left-[10%] md:min-w-[25rem] min-w-[15rem] transition-all duration-200 ease-in ${addToCartNotify? "z-50 opacity-100 visible": "-z-50 opacity-0 invisible"} bg-white box-shadow p-6 flex flex-col items-center`}>
           <div className="cart-checkout__header flex justify-between items-center w-full py-4 px-
           6">
             <span className="flex items-center justify-start gap-1"><FaCheckCircle className="text-amber-700" /> <span className="font-bold">Added To bag</span></span>
@@ -114,9 +161,20 @@ export const ProductDetailPage =()=> {
             </div>
             <NavLink to="/cart" className="w-full text-center"><MainButton text="Checkout Bag"/></NavLink>
         </div>
-           <div className={`p-4 opacityAnimation before:transition-all before:duration-200 before:ease-in ${addToCartNotify? "before:absolute before:z-10 before:h-full before:w-full before:bg-[#00000062]": ""}`}>
-            <div className="heroSection h-screen flex items-start justify-evenly mt-48" ref={productHeroSection}>
-                <div className="heroSection__images h-full w-full  flex justify-center items-center"><img className="h-full flex justify-center items-center" src={productDetails?.thumbnail} alt="Product image" /></div>
+           <div className={`p-4 opacityAnimation before:transition-all before:duration-200 before:ease-in ${addToCartNotify? "before:absolute before:z-30 before:h-full before:w-full before:bg-[#00000062]": ""}`}>
+            <div className="heroSection h-screen flex items-start flex-col lg:flex-row gap-10 justify-evenly mt-48" ref={productHeroSection}>
+                <div ref={productImgSec} className="heroSection__images relative h-full w-full justify-start snap-x snap-mandatory gap-0 flex items-center overflow-x-scroll overflow-y-hidden p-0 m-0">
+               <button onClick={()=>handleImageScroll("right")} className={`text-2xl rounded-[50%] p-4 flex items-center justify-center bg-[#f3f3f3] ${liveScrollProductImg <= productImgSec.current?.clientWidth? "opacity-0 -left-4 invisible": "opacity-100 left-0"} transition-all duration-300 ease-in text-black sticky top-[50%] cursor-pointer`}><IoIosArrowBack/></button>
+                  {
+                  productDetails?.images.map((photo)=>{
+                    return(
+                   <div className="min-w-full h-full flex justify-center mx-4 snap-center items-center"> <img className="h-full" src={photo} alt="Product image" /></div>
+                    
+                  )
+                })
+              }
+              <button onClick={()=>handleImageScroll("left")}  className={`text-2xl text-black sticky top-[50%] rounded-[50%] ${lastPointScrollProductImg + 100 >= productImgSec.current?.scrollWidth? "opacity-0 -right-4 invisible": "opacity-100 right-0"} transition-all duration-300 ease-in p-4 flex items-center justify-center bg-[#f3f3f3] cursor-pointer`}><IoIosArrowForward/></button>
+                  </div>
                 <div className="heroSection__info flex basis-[40rem] justify-start flex-col items-start">
                     <p className="p-0.5 -skew-x-12 bg-black text-[0.75rem] flex justify-center items-center uppercase text-white font-extrabold">
                         {productDetails?.brand || "No brand"}
@@ -161,13 +219,13 @@ export const ProductDetailPage =()=> {
                      </div>
                 </div>
             </div>
-            <div className="detailSections mt-20 px-12">
+            <div className="detailSections mt-20 md:px-12">
                 <div className="detailSection-info" id="products">
                     <h1 className="text-3xl font-extrabold text-black my-4">Product Details</h1>
                     <hr className="border-[#1a1a1a93]"/>
-                    <div className="info px-24">
+                    <div className="info  md:px-24">
                         <p className="text-[1.2rem] my-16">{productDetails?.description}</p>
-                        <div className="little-info w-full flex justify-between gap-4  flex-wrap">
+                        <div className="little-info w-full grid md:grid-cols-3 md:grid-rows-1 grid-cols-2 grid-rows-2">
                             <span className=" m-4 flex justify-center items-center flex-col grow  gap-4">
                             <h2 className="font-bold">Stock left</h2>
                             <p className="text-[0.8rem]">{productDetails?.stock}</p>
@@ -186,7 +244,7 @@ export const ProductDetailPage =()=> {
                 <div className="Tech-specs" id="techSpecs">
                     <h1  className="text-3xl font-extrabold text-black my-4">Tech Specs</h1>
                     <hr className="border-[#1a1a1a93]"/>
-                    <div className="specs px-24">
+                    <div className="specs md:px-24">
                         <div className="specsInfo flex justify-center gap-0 my-16">
                            <span className="grow flex flex-col gap-4">
                              <h2 className="bg-[#ebebeb] p-1 font-bold">Product weight</h2>
@@ -248,7 +306,7 @@ export const ProductDetailPage =()=> {
                              </div>
                               <div className="my-2 text-[#06040491]">{productDetails?.reviews.length} Reviews</div>
                               </h1>
-                              <div className="reviews flex justify-center flex-col px-24">
+                              <div className="reviews flex justify-center flex-col md:px-24">
                                    {productDetails?.reviews.map((review, _)=>{
                                     return(<>
                                      <span className="my-8 flex justify-between">

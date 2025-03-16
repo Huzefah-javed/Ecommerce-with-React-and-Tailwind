@@ -41,39 +41,40 @@ export const Cart = ()=> {
            dispatch(DeleteAddToCart(id))
         }
 
-        console.log(cartItem)
         return (
             <div className="p-4 opacityAnimation">
             <div className="mt-48">
                 <h1 className="font-extrabold text-5xl my-8">Shopping bag <span className="text-[1rem] font-medium">{data.length} items</span></h1>
-                <div className="cartDetail relative flex gap-8">
-                    <div className="products flex flex-col gap-4 grow border-t-[1px] p-8">
+                <div className="cartDetail relative flex justify-center flex-col md:flex-row gap-8">
+                    <div className="products flex flex-col justify-center gap-4 grow border-t-[1px] md:p-8 p-4">
                         {cartItem.length!== 0?cartItem.map((product, index)=>{
                                   totalPrice += product.price
-                            return <div className="flex product-box-shadow rounded-2xl">
-
-                              <div className="p-8 w-full flex  items-center">
+                            return <div className="flex justify-between product-box-shadow w-full rounded-2xl">
+                                <div className="flex flex-col">
+                              <div className="p-8 w-full flex items-start">
 
                                 <div className="productImage">
-                                    <img src={product.thumbnail} alt="product" className="w-24 h-24
+                                    <img src={product.thumbnail} alt="product" className="h-20 w-20
                                     " />
                                     </div>
-                                    <div className="productDetails">
+                                    <div className="productDetails pl-2">
                                         <h2 className="text-lg font-bold">{product.title}</h2>
-                                        <p className="text-sm my-2 text-gray-600">Unit price:{(product.price/ product.quantity).toFixed(2)}</p>
-                                        <div className="mt-8  ml-36 w-full flex gap-8 justify-end text-sm text-gray-600">
-                                            <span className=" flex items-center  gap-4">
-                                            <button onClick={()=>handleQuantity("dec", product.id)} disabled={product.quantity <= 1} className="disabled:text-[#ababab] h-[2.5rem] w-[2.5rem] bg-[#cfcfcf] font-bold text-[1.1rem]">-</button>
+                                        <p className="md:text-sm text-[0.6rem] my-2 text-gray-600">Unit price: ${(product.price/ product.quantity).toFixed(2)}</p>
+                                        </div>
+                                        </div>
+
+                                        <div className=" p-4 md:justify-end w-full flex md:gap-8 gap-4 justify-between items-center text-sm text-gray-600">
+                                            <span className=" flex items-center gap-2  md:gap-4">
+                                            <button onClick={()=>handleQuantity("dec", product.id)} disabled={product.quantity <= 1} className="disabled:text-[#ababab] md:size-10 size-7 bg-[#cfcfcf] font-bold text-[1.1rem]">-</button>
                                             <p className="text-[1rem]">{product.quantity}</p>
-                                            <button onClick={()=>handleQuantity("inc", product.id)} disabled={product.minimumOrderQuantity <= product.quantity} className="h-[2.5rem] w-[2.5rem] disabled:text-[#ababab] bg-[#cfcfcf] font-bold text-[1.1rem]">+</button>
+                                            <button onClick={()=>handleQuantity("inc", product.id)} disabled={product.minimumOrderQuantity <= product.quantity} className="md:size-10 size-7 disabled:text-[#ababab] bg-[#cfcfcf] font-bold text-[1.1rem]">+</button>
                                             </span>
-                                            <span className="font-bold text-[1.3rem] text-black">
+                                            <span className="font-bold md:text-[1.3rem] text-[1rem] text-black">
                                                 ${product.price.toFixed(2)}
                                             </span>
                                             </div>
-                                        </div>
                              </div>   
-                                        <div onClick={()=>handleDeleteCart(index)} className="bg-[#ebebeb] px-4 text-2xl h-full rounded-tr-2xl rounded-br-2xl cursor-pointer flex justify-center items-center"><RiDeleteBin5Line /> </div>
+                                        <div onClick={()=>handleDeleteCart(index)} className="bg-[#ebebeb] px-4 text-2xl h-auto rounded-tr-2xl rounded-br-2xl cursor-pointer flex justify-center items-center"><RiDeleteBin5Line /> </div>
                              </div>
                         }):<div className="text-2xl font-bold uppercase">No Item in the cart</div>}
                 <div className="subtotal border-t-[1px] mt-4 py-8">
@@ -87,13 +88,19 @@ export const Cart = ()=> {
                         <p className="w-full flex justify-between items-center border-t-[1px] mt-4 py-2">Order SubTotal <span>${totalPrice.toFixed(2)}</span></p>
                         <p className="w-full flex justify-between items-center border-t-[1px] mt-4 py-2">Estimate Shipping <span className="text-4xl text-amber-700">+</span></p>
                         <p className="w-full flex justify-between items-center border-t-[1px] mt-4 py-2">Coupon Code <span className="text-4xl text-amber-700">+</span></p>
+                        <div className="md:relative md:visible md:opacity-100 invisible absolute opacity-0">
                         <p className="w-full text-2xl flex justify-between items-center font-bold border-t-[1px] mt-4 pt-2">Estimated Total <span className="font-bold text-[1rem]">${totalPrice.toFixed(2)}</span></p>
                         <p className="w-full text-[0.65rem]">Final shipping and tax calculated during checkout.</p>
                         <div className="w-full mt-5 flex justify-center"><MainButton paddingLR={true} text="Order Now"/></div>
 
+                        </div>
                     </div>
-                    
+
+                        </div>
                 </div> 
+                        <div className="md:invisible md:opacity-0 sticky bottom-0 -right-4 bg-white w-full">
+                        <p className="w-full text-2xl flex justify-between items-center font-bold mt-4 mr-5 pt-2">Estimated Total <span className="font-bold text-[1rem]">${totalPrice.toFixed(2)}</span></p>
+                        <div className="w-full mt-5 flex justify-center"><MainButton paddingLR={true} text="Order Now"/></div>
             </div>
         </div>
     ) 

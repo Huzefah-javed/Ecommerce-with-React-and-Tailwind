@@ -6,19 +6,26 @@
 
 @layer utilities{
     .box-shadow{
-        box-shadow: 0.1rem 0.1rem 0.25rem rgba(0, 0, 0, 0.203)
+        box-shadow: 0.1rem 0.1rem 0.25rem rgba(0, 0, 0, 0.203);
     }
     .product-box-shadow{
-        box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.203)
+        box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.203);
     }
     .text-shadow{
         text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.662);
     }
     .clip-custom-men {
-        clip-path: polygon(0 0, 65% 0, 100% 100%, 0% 100%);
+        clip-path: polygon(0 0, 65% 0, 100% 100%, 0% 100%) !important;
+    }
+    .clip-custom-men-sm-screen {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 50%);
+    }
+    .clip-custom-women-sm-screen{
+        clip-path: polygon(0 0, 100% 50%, 100% 100%, 0 100%);
+
     }
     .clip-custom-women{
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%) !important;
     }
 }
 
@@ -44,7 +51,8 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #e5e7eb; /* Tailwind gray-200 */
+    background: #e5e7eb;
+    width: 20rem;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -90,3 +98,31 @@
     animation: l1 1s infinite;
   }
   @keyframes l1 {to{transform: rotate(.5turn)}}
+
+  .heroSection__images::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+
+
+  @media (width <= 1000px) {
+    html{
+        font-size: 90%;
+    }
+  }
+  
+  @media (width <= 769px) {
+    html{
+        font-size: 85%;
+    }
+  }
+  
+  @media (width <= 520px) {
+    html{
+        font-size: 80%;
+    }
+  }

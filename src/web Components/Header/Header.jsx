@@ -42,22 +42,33 @@ export const Header =()=> {
     setExperienceMenu(true)
    }
     return ( 
-    <header className="w-full flex justify-between items-center absolute z-30 top-0 mt-10">
-                    <div className={`${location.pathname === "/"? " ml-8": "h-10"} relative flex items-center justify-start gap-0 -skew-x-[30deg]`}>
+    <header className="md:w-full min-w-full max-w-full flex justify-between items-center absolute z-20 top-0 p-2 md:mt-10 bg-white md:bg-transparent">
+                    <div className={`${location.pathname === "/"? "md:ml-8": "h-10"} relative flex items-center justify-start gap-0 -skew-x-[30deg]`}>
 
-                        <div className={`${location.pathname === "/"? "skew-x-[30deg]": ` ${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "bg-white":"bg-black"} h-full flex items-center justify-start pl-12 p-3>`}`}>
-                        <img className={`${location.pathname === "/"? "w-72": "w-8 skew-x-30"}`} src={`${location.pathname === "/"? "main-logo.png": location.pathname.includes("/products/")||location.pathname.includes("/cart")? "/Logo.png":"logo-white.png"}`} alt="main logo" />
-                    </div>
-                        {location.pathname === "/"?"":<><div onClick={()=>navigator(-1)} className={` flex justify-center items-center ${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "bg-white text-black":"bg-black text-white"} h-full px-4 text-2xl cursor-pointer`}><IoIosArrowBack className="skew-x-30"/></div>
-                    <div onClick={()=>{handleHidenavMenu()}} className="text-white w-[3rem] cursor-pointer h-full bg-[#949494] text-2xl flex justify-center items-center"><MdClose className="skew-x-[30deg]"/></div>
-                        <div className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "bg-white":"bg-[#dedede]"} ${navMenu? "":"-translate-x-[10rem]"} -z-30 transition-all duration-[0.25s] ease-in min-w-[3rem] px-4 h-full text-[0.8rem] flex justify-center items-center gap-4`}><NavLink className="skew-x-[30deg]" to="/">Home</NavLink><NavLink className="skew-x-[30deg]" to={location.pathname}>{location.pathname}</NavLink></div></>}
+                    <div className={`${window.innerWidth >= 768? "w-[15rem]":"w-[2rem]"} skew-x-[30deg]`}><img src={window.innerWidth >= 768 && location.pathname === "/"? "/main-logo.png":window.innerWidth >= 768 && location.pathname !== "/"? "":"/Logo.png"}/></div> 
+
+                        {location.pathname === "/"?
+                        "":
+                        <div className={`absolute ${window.innerWidth < 768? "top-15 left-4":""} flex z-40 h-[3rem]`}>
+                            <div onClick={()=>navigator(-1)} className={` flex justify-center items-center ${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "bg-white text-black":"bg-black text-white"} h-full px-4 text-2xl cursor-pointer`}>
+                                <IoIosArrowBack className="skew-x-30"/>
+                                </div>
+                        <div onClick={()=>{handleHidenavMenu()}} className="text-white w-[3rem] cursor-pointer h-full bg-[#949494] text-2xl flex justify-center items-center">
+                            <MdClose className="skew-x-[30deg]"/>
+                            </div>
+                        <div className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "bg-white":"bg-[#dedede]"} ${navMenu? "":"-translate-x-[10rem] invisible opacity-0"} -z-30 transition-all duration-[0.25s] ease-in min-w-[3rem] px-4 h-full text-[0.8rem] flex justify-center items-center gap-4`}>
+                            <NavLink className="skew-x-[30deg]" to="/">Home</NavLink><NavLink className="skew-x-[30deg]" to={location.pathname}>
+                                {location.pathname}
+                                </NavLink>
+                                </div>
+                            </div>}
                         </div>
-        <div className="flex mr-12 font-sans relative">
-            <button onClick={()=> handleShopMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "text-black": "text-white"} text-[1.1rem] font-bold ml-10 uppercase cursor-pointer`}>Shop</button>
-            <button onClick={()=>handleExperienceMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "text-black": "text-white"} text-[1.1rem] font-bold ml-10 uppercase cursor-pointer`}>Experience</button>
-            <button onClick={()=> handleSearchMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "text-black": "text-white"} text-[1.5rem] font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500`}><IoIosSearch /></button>
-            <button  onClick={()=>handleMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "text-black": "text-white"} text-[1.5rem] font-bold ml-10 cursor-pointer`}><RxHamburgerMenu /></button>
-            <button className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "text-black": "text-white"} text-[1.5rem] font-bold ml-10 cursor-pointer relative hover:text-amber-700 transition-all duration-500`}><NavLink to="/cart"><MdOutlineShoppingBag /><span className="absolute h-4 w-4 flex items-center justify-center left-[70%] top-0 bg-amber-700 text-white rounded-[80%] p-[3px] text-[0.65rem]">{cartData.length}</span></NavLink>
+        <div className="flex justify-around md:mr-12 grow-[2] md:grow-0 font-sans relative">
+            <button onClick={()=> handleShopMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} md:text-[1.1rem] text-[0.9rem] font-bold text-black ml-10 uppercase cursor-pointer`}>Shop</button>
+            <button onClick={()=>handleExperienceMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} md:text-[1.1rem] text-[0.7rem] invisible hidden md:block md:visible text-black font-bold ml-10 uppercase cursor-pointer`}>Experience</button>
+            <button onClick={()=> handleSearchMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} text-[1.7rem] text-black font-bold ml-10 cursor-pointer hover:text-amber-700 transition-all duration-500`}><IoIosSearch /></button>
+            <button  onClick={()=>handleMenuActive()} className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} text-[1.5rem] text-black font-bold ml-10 cursor-pointer`}><RxHamburgerMenu /></button>
+            <button className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} text-[1.7rem] text-black font-bold ml-10 cursor-pointer relative hover:text-amber-700 transition-all duration-500`}><NavLink to="/cart"><MdOutlineShoppingBag /><span className="absolute size-4  flex items-center justify-center left-[70%] top-0 bg-amber-700 text-white rounded-[80%] p-[3px] text-[0.65rem]">{cartData.length}</span></NavLink>
             </button>
         </div>
         <HeaderMenubarDetail menuActive={menuActive} setMenuActive={setMenuActive}/>

@@ -63,9 +63,9 @@ export const Footer =()=>{
             Data: ["Corporate Sales","Pro Program","Military Discount","Educational Discount","Global Distribution Partners","BD Affiliate Program"]
         }
     ]
-    return <div className="bg-black p-6 pt-10 relative z-20">
+    return <div className="bg-black p-6 pt-10 relative z-20 overflow-hidden">
 
-                <div className="service text-white flex w-full justify-evenly items-center mt-8 mb-28">
+                <div className="service text-white flex w-full justify-evenly flex-col md:flex-row gap-8 md:items-center mt-8 mb-28">
                     {  
                         services.map((service, index) => {
                             return (<div key={index} className="max-w-64 flex justify-center items-center">
@@ -78,7 +78,7 @@ export const Footer =()=>{
                         })
                     }
                 </div>
-                <div ref={graphElem} className={`graph mb-20 relative before:h-full before:origin-right before:absolute before:top-0 before:right-0 before:bg-black before:w-full ${showGraph? "before:scale-x-0":"before:scale-x-100"} before:transition-all before:duration-[2s] before:ease-in-out`}>
+                <div ref={graphElem} className={`graph mb-20 origin-left scale-[270%] md:scale-100 relative before:h-full before:origin-right before:absolute before:top-0 before:right-0 before:bg-black before:w-full ${showGraph? "before:scale-x-0":"before:scale-x-100"} before:transition-all before:duration-[4s] before:ease-in-out`}>
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2915.6 120" xml:space="preserve" data-v-ca0dc9d4=""><path fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" d="M1,116.8h118.7c21.6-9.6,26.3-12.9,44.3-22.3c15.3-8,16.9-19.3,20.3-23.4c3.5-4.1,4.8-6,6.5-6.7
 		c2.1-0.8,4-2.2,5.5-4c1.4-2,3.4-3.5,5.7-4.5c2-0.6,3.6-1.9,4.8-3.7c0.8-1.5,2.5-4.8,4.8-3.5c1.4,0.7,2.8,1.6,4.1,2.5
 		c1.1,0.9,2.1,1.8,3.1,2.6s2.4,1.9,3.2,2s3.4,1.9,4.4,2.2c0.9,0.2,3.6-0.8,4.3-1.3c0.9-0.5,2-0.8,3.1-0.9c0.7,0,1.8-1.2,2.8-1.3
@@ -116,31 +116,31 @@ export const Footer =()=>{
 		c2.4,1.6,5.2,2.3,8,2.3c1.9,0,3.8,0.3,5.6,1.1c2.6,0.6,5.2,0.9,7.8,1c3.9,0.1,7.7,0.9,11.4,2.3c4.8,1.8,7.2,3.3,10.7,3.6
 		s8.2,1.1,9.9,2.1l1728.1-0.1" ></path></svg>
                 </div>
-                <div className="links-main w-full flex justify-between ">
+                <div className="links-main w-full flex justify-between flex-col md:flex-row gap-20">
                     <div className="max-w-[35rem] flex flex-col justify-start">
                         <img className="w-72" src="main logo.png" alt="main logo" />
                     <p className="py-4 text-white">Here at Black Diamond it's all about climbing and skiing. We share the same experiences that you do on rock, ice and snow and these experiences push us to make the best gear possible for our worldwide family of climbers and skiers.</p>
-                    <div className="text-white flex justify-between pt-8 max-w-[28rem]">
+                    <div className="text-white flex gap-0 justify-between pt-8 w-auto md:max-w-[28rem]">
                         <a className="hover:text-amber-700 transition-all duration-500 ease-in-out" href="#">Contact Us</a>
                         <a className="hover:text-amber-700 transition-all duration-500 ease-in-out" href="#">Who we are</a>
                         <a className="hover:text-amber-700 transition-all duration-500 ease-in-out" href="#">Careers</a>
                         <a className="hover:text-amber-700 transition-all duration-500 ease-in-out" href="#">Retail Stores</a>
                     </div>
-                    <div className="text-white flex justify-between pt-8 max-w-[22rem]">
+                    <div className="text-white flex justify-between pt-8 w-[15rem] md:max-w-[22rem]">
                         <a className="text-4xl hover:text-amber-700 transition-all duration-500 ease-in-out" href="#"><FaInstagram /></a>
                         <a className="text-4xl hover:text-amber-700 transition-all duration-500 ease-in-out" href="#"><FaYoutube /></a>
                         <a className="text-4xl hover:text-amber-700 transition-all duration-500 ease-in-out" href="#"><FaFacebookF />                        </a>
                         <a className="text-4xl hover:text-amber-700 transition-all duration-500 ease-in-out" href="#"><FaTwitter /></a>
                     </div>
-                        <div className="flex justify-center w-[28rem] mt-12">
+                        <div className="h-10 w-[80%] gap-2 md:gap-0 flex md:flex-row flex-col justify-center max-w-[28rem] mt-12">
                             <input className="h-full border-2 border-solid border-white bg-none text-white outline-none p-4 grow-[1] focus:bg-black" placeholder="you@email.com" type="email" name="email" id="email" />
-                            <MainButton text="join us" bg="white" color="black" paddingLR={true}/>
+                            <div className="h-full grow-[1]"><MainButton paddingLR={true} text="join us" bg="white" color="black"/></div>
                         </div>
                     </div>
                     <div>
                         <div className="text-white">
                             <h1 className="text-2xl font-bold font-sans mb-8">Customer Service</h1>
-                                <div className="flex justify-evenly items-center">
+                                <div className="flex justify-evenly flex-col md:flex-row items-start md:items-start gap-8">
                                         {
                                             links.map((link, index)=>{
                                                 return (

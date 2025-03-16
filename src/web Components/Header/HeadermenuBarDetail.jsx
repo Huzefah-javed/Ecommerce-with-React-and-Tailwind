@@ -14,8 +14,8 @@ export const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
 
         <button onClick={()=>handleCloseMenu()} className=" h-fit w-fit text-[1.4rem] box-shadow p-2 cursor-pointer mr-10"><GrClose /></button>
         </header>
-        <div className={`main-container flex justify-start transition-all duration-500 ease-in-out ${menuActive? "mt-16 opacity-100": "mt-24 opacity-0"}`}>
-            <div className="login-detail flex flex-col m-8 w-[24rem]">
+        <div className={`main-container flex justify-start flex-col md:flex-row transition-all duration-500 ease-in-out ${menuActive? "mt-16 opacity-100": "mt-24 opacity-0"}`}>
+            <div className="login-detail flex flex-col m-8 max-w-[24rem] md:w-[24rem]">
                 <div className="mb-8 text-[1.5rem] capitalize tracking-tighter font-semibold">Login to your account</div>
                 <div className="email mb-8 flex flex-col">
                     <label className="text-[0.89rem] text-zinc-700 mb-1" htmlFor="email">Email Address*</label>
@@ -31,18 +31,18 @@ export const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
                 </div>
                 <MainButton text="submit"/>
             </div>
-            <div className="menu-list flex flex-col ml-14">
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Customer support</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">contact us</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Order status</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Warranty</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Repair status</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Returns</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Shipping</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">eGift cards</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Order FAQs</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">Dealer Locator</a>
-                <a className="text-[1.2rem] capitalize tracking-tighter m-4 font-semibold" href="#">cookie preferences</a>
+            <div className="menu-list flex flex-col md:ml-14">
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Customer support</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">contact us</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Order status</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Warranty</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Repair status</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Returns</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Shipping</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">eGift cards</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Order FAQs</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">Dealer Locator</a>
+                <a className="text-[1.2rem] capitalize tracking-tighter md:m-4 m-2 font-semibold" href="#">cookie preferences</a>
             </div>
         </div>
     </div>
