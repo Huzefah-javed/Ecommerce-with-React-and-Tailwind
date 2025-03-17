@@ -2,7 +2,7 @@ import { GrClose } from "react-icons/gr";
 import { MainButton } from "../../../src/web Components/Buttons/MainButton"
 
 
-export const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
+const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
 
     const handleCloseMenu =()=> {
         setMenuActive(false)
@@ -47,3 +47,5 @@ export const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
         </div>
     </div>
 }
+
+export default HeaderMenubarDetail;

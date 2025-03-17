@@ -1,9 +1,9 @@
 import { GrClose } from "react-icons/gr"
 import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
-import { ProductsShowCase } from "../../Pages/Landing page/LandingPageSections/ProductsShowCase"
+import ProductsShowCase from "../../Pages/Landing page/LandingPageSections/ProductsShowCase"
 
-export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=> {
+const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=> {
     const [searchValue, setSearchedValue] = useState("")
     const handleSearchMenuClose =()=>{
         setSearchMenuActive(false)
@@ -32,7 +32,10 @@ export const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=>
                 <a className="text-[1rem] capitalize tracking-tighter m-3 font-medium" href="#">mens's</a>
                 <a className="text-[1rem] capitalize tracking-tighter m-3 font-medium" href="#">Womans</a>
             </div>
-                {searchValue? <ProductsShowCase searchedItem={searchValue} title={searchValue} titleCategory="view all"/>: <h1 className="text-2xl capitalize font-bold font-sans">Your recent view</h1>}
+                {searchValue? <ProductsShowCase searchedItem={searchValue} title={searchValue} titleCategory="view all" directlyShown={true}/>: <h1 className="text-2xl capitalize font-bold font-sans">Your recent view</h1>}
         </div>
     </div>
 }
+
+
+export default HeaderSearchMenuDetail;

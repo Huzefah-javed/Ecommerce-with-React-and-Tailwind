@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { GrClose } from "react-icons/gr"
 
-export const HeaderExperienceDetail =({experienceMenu , setExperienceMenu})=> {
+ const HeaderExperienceDetail =({experienceMenu , setExperienceMenu})=> {
                 const [singleLinkIndex, SetSingleLinkIndex] = useState(0)
                 const handleCloseExperienceMenu =()=> {
                     setExperienceMenu(false)
@@ -78,3 +78,5 @@ export const HeaderExperienceDetail =({experienceMenu , setExperienceMenu})=> {
                     </div>
                         </div>
 }
+
+export default HeaderExperienceDetail;

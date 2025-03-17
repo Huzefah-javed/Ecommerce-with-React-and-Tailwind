@@ -1,8 +1,19 @@
 import { NavLink } from "react-router";
 import { addProductCategoryData } from "../../../Store";
 import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
 
 export const ProductsCategories =()=>{
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+     const handleResize =useCallback(()=>{
+            setWindowWidth(window.innerWidth)
+            window.removeEventListener("resize", handleResize)
+        })
+        useEffect(()=>{
+            window.addEventListener("resize", handleResize)
+            return ()=> window.addEventListener("resize", handleResize)
+        },[])
 
     const dispatch = useDispatch()
     const products = [
@@ -50,7 +61,7 @@ export const ProductsCategories =()=>{
        md:w-[60.25%] sm:w-full
        products-category-basic-style absolute top-0
        md:left-0
-       ${window.innerWidth >= 768?"clip-custom-men" :"clip-custom-men-sm-screen"}`}>
+       ${windowWidth >= 768?"clip-custom-men" :"clip-custom-men-sm-screen"}`}>
     <h2 className="product-category-h1-style text-shadow text-[1.5rem]">
       Men's Clothing
     </h2>
@@ -65,7 +76,7 @@ export const ProductsCategories =()=>{
        md:w-[60.25%] sm:w-full
        products-category-basic-style absolute bottom-0
        md:right-0
-       ${window.innerWidth >= 768?"clip-custom-women" :"clip-custom-women-sm-screen"}`}>
+       ${windowWidth >= 768?"clip-custom-women" :"clip-custom-women-sm-screen"}`}>
     <h2 className="product-category-h1-style text-shadow text-[1.5rem]">
       Women's Clothing
     </h2>

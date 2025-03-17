@@ -7,13 +7,15 @@ import { addProductCategoryData } from "../../Store"
 import { useQuery } from "@tanstack/react-query"
 
 
-export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
+const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
     const dispatch = useDispatch()
     
 
     const {data, isLoading, error} = useQuery({
         queryKey: ["productsCategory"],
         queryFn : productCategory,
+        staleTime: 300000,
+        enabled: shopMenuActive
     })
         
         const handleShopMenuClose =()=> {
@@ -45,3 +47,5 @@ export const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
                 </div>
     </>
 }
+
+export default HeaderShopMenu;

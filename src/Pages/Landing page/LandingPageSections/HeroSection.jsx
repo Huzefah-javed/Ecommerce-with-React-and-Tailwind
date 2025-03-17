@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 import { MainButton } from "../../../web Components/Buttons/MainButton";
 import { useEffect, useState } from "react";
 
-export const HeroSection = ({ bg_link, heading, para, button_text, buttonNone, height }) => {
+const HeroSection = ({ bg_link, heading, para, button_text, buttonNone, height }) => {
     const [backgroundImage, setBackgroundImage] = useState("");
 
     useEffect(() => {
@@ -38,3 +38,5 @@ export const HeroSection = ({ bg_link, heading, para, button_text, buttonNone, h
         </div>
     );
 };
+
+export default HeroSection

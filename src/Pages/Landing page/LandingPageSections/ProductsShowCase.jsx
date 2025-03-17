@@ -1,24 +1,47 @@
 import { useQuery } from "@tanstack/react-query";
 import { searchProducts } from "../../../Api data/ProductDataFetch";
 import { NavLink } from "react-router";
+import { useEffect, useRef, useState } from "react";
 
-export const ProductsShowCase = ({searchedItem, title, titleCategory})=>{
+const ProductsShowCase = ({searchedItem, title, titleCategory, directlyShown})=>{
+
+    const[shown, setShown] = useState(false)
+    const productShowCase = useRef(null)
+
+
+        const handleShownProducts =()=> {
+            if (window.innerHeight >= productShowCase.current.getBoundingClientRect().top - 300) {
+                setShown(true)
+                window.removeEventListener("scroll", handleShownProducts)
+            }else{
+                setShown(false)
+            }
+        }
+    useEffect(()=>{
+        if (productShowCase.current) {
+           window.addEventListener("scroll", handleShownProducts)
+        }
+        return ()=> window.removeEventListener("scroll", handleShownProducts)
+        
+    },[])
 
     const {data, isLoading, isError, error} = useQuery({
         queryKey: ['productsCategoryLanding', searchedItem],
-        queryFn: ()=> searchProducts(searchedItem)
+        queryFn: ()=> searchProducts(searchedItem),
+        staleTime: 300000,
+        enabled: shown || directlyShown
     })
 
 
 
-    return <div className="w-full px-2 py-8">
+    return <div ref={productShowCase} className="w-full px-2 py-8">
         <header className="flex justify-between">
             <h1 className="md:text-6xl text-4xl font-extrabold font-sans uppercase">{title}</h1>
             {window.innerWidth >= 769 ?<h2 className="group flex gap-2 items-center text-[1.1rem] font-extrabold font-sans cursor-pointer">{titleCategory} <img className="w-[1rem] transition-all duration-500 ease-in-out group-hover:translate-x-2" src="arrow image.png" alt="arrow image"/></h2> : ""}
         </header>
         <div className="custom-scrollbar py-2 flex justify-start items-stretch overflow-x-scroll overflow-y-hidden md:gap-4 gap-8 my-12 mx-4">
             
-        {!isLoading && !isError ? data.products.length> 0? data.products.map((product, index) => (
+        {!isLoading && !isError ? data?.products?.length> 0? data?.products?.map((product, index) => (
         <>
                                 <NavLink  key={index} to={`/products/${product.id}`}>
 
@@ -114,3 +137,5 @@ export const ProductsShowCase = ({searchedItem, title, titleCategory})=>{
         {window.innerWidth < 769 ?<h2 className="group w-full flex justify-end text-end gap-2 items-center text-[0.7rem] font-extrabold font-sans cursor-pointer">{titleCategory} <img className="w-[0.8rem] transition-all duration-500 ease-in-out group-hover:translate-x-2" src="arrow image.png" alt="arrow image"/></h2>: ""} 
     </div>
 }     
+
+export default ProductsShowCase;

@@ -149,7 +149,7 @@ export const ProductDetailPage =()=> {
                         <div onClick={()=>{handleAddToCart(productDetails)}} className="grow-[2]"><MainButton text="Add to bag" paddingLR={true}/></div>
                         <button className="border-[0.5px] px-4">Buy Local</button>              
                      </div>}
-        <div className={`cart-checkout absolute md:top-[20%] top-[10%] flex flex-col gap-4 md:right-4 left-[10%] md:min-w-[25rem] min-w-[15rem] transition-all duration-200 ease-in ${addToCartNotify? "z-50 opacity-100 visible": "-z-50 opacity-0 invisible"} bg-white box-shadow p-6 flex flex-col items-center`}>
+        <div className={`cart-checkout absolute top-[20%] flex flex-col gap-4 md:left-[60%] left-[20%] md:w-[25rem] min-w-[15rem] transition-all duration-200 ease-in ${addToCartNotify? "z-50 opacity-100 visible": "-z-50 opacity-0 invisible"} bg-white box-shadow p-6 flex flex-col items-center`}>
           <div className="cart-checkout__header flex justify-between items-center w-full py-4 px-
           6">
             <span className="flex items-center justify-start gap-1"><FaCheckCircle className="text-amber-700" /> <span className="font-bold">Added To bag</span></span>

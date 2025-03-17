@@ -1,16 +1,29 @@
-import { HeroSection } from "./Landing page/LandingPageSections/HeroSection";
+import  HeroSection from "./Landing page/LandingPageSections/HeroSection";
 import { useQuery } from "@tanstack/react-query";
 import { AllProducts, productCategoryList } from "../Api data/ProductDataFetch";
 import { useSelector } from "react-redux";
-import { useCallback, useEffect, tate, useState } from "react";
+import { useCallback, useEffect, tate, useState, useTransition } from "react";
 import { MainButton } from "../web Components/Buttons/MainButton";
 import { NavLink } from "react-router";
 import { HiOutlineFilter } from "react-icons/hi";
 
 export const ProductsPage = () => {
-    const productData = useSelector((state) => state.ProductDetails.category);
-
+  const productData = useSelector((state) => state.ProductDetails.category);
+  
+  
+  const [isPending, startTransition] = useTransition();
     const [loadData, setLoadData] = useState(30)
+    const [filterShown, setFilterShown] = useState(false)
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+     const handleResize =useCallback(()=>{
+            setWindowWidth(windowWidth.innerWidth)
+            window.removeEventListener("resize", handleResize)
+        })
+        useEffect(()=>{
+            window.addEventListener("resize", handleResize)
+            return ()=> window.addEventListener("resize", handleResize)
+        },[])
 
     const [dataForFilter, setDataForFilter] = useState({
         brands: [],
@@ -58,7 +71,7 @@ export const ProductsPage = () => {
         return item.title.toUpperCase().includes(filterCmdUser.search.toUpperCase())
 }): data?.products || []
 
-const priceFilter =  filterCmdUser.price? SearchFilter.filter((item)=>{
+const priceFilter = filterCmdUser.price? SearchFilter.filter((item)=>{
     return item.price > filterCmdUser.price
 }): SearchFilter
 
@@ -85,6 +98,10 @@ const handleLoadMoreData =()=>{
      setLoadData(loadData + 30)
     
 }
+
+const handleFilterToggle =()=> {
+  setFilterShown(!filterShown)
+}
     return (
         <div className="opacityAnimation">
             
@@ -98,7 +115,14 @@ const handleLoadMoreData =()=>{
 
             <div className="w-full px-6 md:px-12 pb-16">
                 <header className="flex justify-between">
-                    <h1 className="text-3xl font-[600] font-sans capitalize">{window.innerWidth > 768?<div>{productData} result</div>: <button className="flex gap-2 text-[1.5rem]"><HiOutlineFilter /><h1>Filter</h1></button>}</h1>
+                    <h1 className="text-3xl font-[600] font-sans capitalize">
+                      {windowWidth > 768?<div>{productData} result</div>
+                      :
+                       <button onClick={()=>{handleFilterToggle()}} className="flex gap-2 text-[1.5rem]">
+                        <HiOutlineFilter />
+                        <h1>Filter</h1>
+                        </button>
+                        }</h1>
                     <div className="applied-filter"></div>
                     <div className="sort-filter flex gap-4 items-center">
                         <p className="text-[#0000009e]">{brandFilter?.length} results</p>
@@ -122,9 +146,9 @@ const handleLoadMoreData =()=>{
                 </header>
 
                 <div className="mt-8 flex flex-col">
-                <div className="flex">
+                <div className={`flex relative ${filterShown? "min-h-[100vh]": "min-h-[50vh]"}`}>
   
-         <div className="filter absolute top-0 left-0 -z-50 md:z-10 w-full md:static min-h-full p-4 grow basis-72 bg-[#f7f7f6] mr-8">
+         <div className={`filter absolute top-0 left-0 max-h-dvh ${filterShown ? "z-50 visible":"-z-50 invisible"} md:z-10 w-full md:static md:visible transition-all ease-in-out duration-200 min-h-full p-4 grow basis-72 bg-[#f7f7f6] mr-8`}>
     <div className="flex flex-col items-start relative z-50 w-full my-4">
       <label htmlFor="search" className="font-medium font-sans justify-self-start">
         Search Product:
@@ -154,9 +178,11 @@ const handleLoadMoreData =()=>{
         min="0"
         max={dataForFilter.maxPrice}
         onChange={(e) => {
-          setFilterCmdUser((prev) => {
-            return { ...prev, price: e.target.value };
-          });
+
+            setFilterCmdUser((prev) => {
+          
+              return { ...prev, price: e.target.value }
+            });
         }}
       />
       <div className="w-full flex justify-between">
@@ -166,7 +192,7 @@ const handleLoadMoreData =()=>{
     </div>
     <div className="flex flex-col items-start w-full">
       <div className="font-medium font-sans justify-self-start my-4">Brands:</div>
-      {dataForFilter.brands.length > 0 ? (
+      {dataForFilter.brands.length > 0 && productData ? (
         dataForFilter.brands.map((checkboxData) => {
           return (
             <div key={checkboxData} className="flex gap-2 items-center ml-2 my-2">
@@ -204,7 +230,7 @@ const handleLoadMoreData =()=>{
       </div>
                     <div className="productGrid grow-[2] relative grid grid-cols-2 md:grid-cols-3 grid-rows-3 gap-4">
                             
-                        
+                        {brandFilter.length === 0? <h1 className=" h-full flex justify-center items-center font-bold text-3xl">No product Found</h1>: ""}
                         {!isLoading && !isError && data ? brandFilter.map((product, index) => (
                             
                             <NavLink to={`/products/${product.id}`} >
