@@ -9,7 +9,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-export const ProductDetailPage =()=> {
+const ProductDetailPage =()=> {
   
   const dispatch = useDispatch()
 
@@ -344,3 +344,5 @@ export const ProductDetailPage =()=> {
             </div>
          </div>
 </>)}
+
+export default ProductDetailPage;

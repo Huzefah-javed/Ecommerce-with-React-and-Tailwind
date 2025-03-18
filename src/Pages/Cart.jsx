@@ -5,7 +5,7 @@ import { DeleteAddToCart } from "../Store";
 import { useEffect, useState } from "react";
 
 
-export const Cart = ()=> {
+const Cart = ()=> {
 
     const [cartItem, setCartItem] = useState([])
 
@@ -105,3 +105,5 @@ export const Cart = ()=> {
         </div>
     ) 
 }
+
+export default Cart;

@@ -1,11 +1,11 @@
+import { lazy, Suspense, useEffect } from "react"
 import { QueryClient } from "@tanstack/react-query"
-import { Landingpage } from "./Pages/Landing page/LandingPage"
 import { createBrowserRouter, RouterProvider, useLocation } from "react-router"
 import { StructurePage } from "./Pages/StructurePage"
-import { ProductsPage } from "./Pages/ProductsPage"
-import { ProductDetailPage } from "./Pages/ProductDetailPage"
-import { Cart } from "./Pages/Cart"
-import { useEffect } from "react"
+const Landingpage = lazy(()=>import ("./Pages/Landing page/LandingPage"))
+const ProductsPage = lazy(()=>import ("./Pages/ProductsPage"))
+const ProductDetailPage = lazy(()=>import ("./Pages/ProductDetailPage"))
+const Cart = lazy(()=>import ("./Pages/Cart"))
 import { Error } from "./Pages/Error"
 
 
@@ -33,16 +33,16 @@ export const App =()=> {
       children: [
         {
           path: "/",
-          element: <Landingpage/>
+          element: <Suspense fallback={<div className="bg-white h-dvh flex justify-center items-center"><div className="loader"></div></div>}><Landingpage/></Suspense>
         },{
           path: "/products",
-          element: <ProductsPage/>
+          element: <Suspense fallback={<div className="bg-white h-dvh flex justify-center items-center"><div className="loader"></div></div>}><ProductsPage/></Suspense>
         },{
           path: `/products/:id`,
-          element: <ProductDetailPage/>,
+          element: <Suspense fallback={<div className="bg-white h-dvh flex justify-center items-center"><div className="loader"></div></div>}><ProductDetailPage/></Suspense>,
         },{
           path: "/cart",
-          element: <Cart/>
+          element: <Suspense fallback={<div className="bg-white h-dvh flex justify-center items-center"><div className="loader"></div></div>}><Cart/></Suspense>
         }
       ]
     },

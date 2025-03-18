@@ -7,7 +7,7 @@ import { MainButton } from "../web Components/Buttons/MainButton";
 import { NavLink } from "react-router";
 import { HiOutlineFilter } from "react-icons/hi";
 
-export const ProductsPage = () => {
+ const ProductsPage = () => {
   const productData = useSelector((state) => state.ProductDetails.category);
   
   
@@ -331,3 +331,5 @@ const handleFilterToggle =()=> {
                        
     );
 };
+
+export default ProductsPage;

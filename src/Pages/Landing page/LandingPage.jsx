@@ -4,7 +4,7 @@ const HeroSection= lazy(()=>import ("./LandingPageSections/HeroSection"))
 import { ProductsCategories } from "./LandingPageSections/ProductsCategories"
 const ProductsShowCase = lazy(()=>import ("./LandingPageSections/ProductsShowCase"))
 
-export const Landingpage =()=> {
+ const Landingpage =()=> {
 
     return (<>
         <Suspense fallback={<div className="h-dvh bg-black">Loading...</div>}><HeroSection 
@@ -30,3 +30,5 @@ export const Landingpage =()=> {
        <Suspense fallback={<div>Loading...</div>}> <ProductsShowCase  searchedItem= "shirt" title="New shirts" titleCategory="See all category" directlyShown={false}/></Suspense>
     </>)
 }
+
+export default Landingpage;
