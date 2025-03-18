@@ -121,7 +121,6 @@ const ProductDetailPage =()=> {
       });
     }
   };
-      console.log("liveScrollProductImg ",liveScrollProductImg , "lastPointScrollProductImg:",lastPointScrollProductImg, "scrollwidth:", productImgSec.current?.scrollWidth)  
 
 
         return(<>    {window.innerWidth> 769?<header className={`fixed top-0 ${headerVisibility? "z-20 opacity-100 visible": "-z-50 opacity-0 invisible"} transition-all duration-300 ease-in bg-white shadow-2xl overflow-hidden w-full h-16 flex justify-between px-6 py-12 items-center`}>

@@ -19,19 +19,19 @@ export const ProductsCategories =()=>{
     const products = [
         {
             name : "beauty",
-            imageLink : "beauty category.jpg"
+            imageLink : "beauty category.webp"
         },
         {
             name : "home-decoration",
-            imageLink : "home decoration.jpg"
+            imageLink : "home decoration.webp"
         },
         {
             name : "laptops",
-            imageLink : "laptops category.jpg"
+            imageLink : "laptops category.webp"
         },
         {
             name : "smartphones",
-            imageLink : "smartPhone category.jpg"
+            imageLink : "smartPhone category.webp"
         }
     ]
 
@@ -66,7 +66,7 @@ export const ProductsCategories =()=>{
       Men's Clothing
     </h2>
     <img loading="lazy" className="product-category-image-style" 
-         src="mens category.jpg" 
+         src="mens category.webp" 
          alt="mens category"/>
   </div>
 
@@ -81,7 +81,7 @@ export const ProductsCategories =()=>{
       Women's Clothing
     </h2>
     <img loading="lazy" className="product-category-image-style" 
-         src="womens category.jpg" 
+         src="womens category.webp" 
          alt="womens category"/>
   </div>
 </div>

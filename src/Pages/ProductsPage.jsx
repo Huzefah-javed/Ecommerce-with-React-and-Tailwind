@@ -10,8 +10,6 @@ import { HiOutlineFilter } from "react-icons/hi";
  const ProductsPage = () => {
   const productData = useSelector((state) => state.ProductDetails.category);
   
-  
-  const [isPending, startTransition] = useTransition();
     const [loadData, setLoadData] = useState(30)
     const [filterShown, setFilterShown] = useState(false)
 
@@ -106,7 +104,7 @@ const handleFilterToggle =()=> {
         <div className="opacityAnimation">
             
             <HeroSection
-                bg_link="/productPageMainImage.jpg"
+                bg_link="/productPageMainImage.webp"
                 heading="Discover Quality, Shop with Confidence"
                 para="Explore our premium collection of products designed to meet your needs. From top-notch materials to unbeatable prices, we ensure quality and satisfaction with every purchase."
                 buttonNone={true}

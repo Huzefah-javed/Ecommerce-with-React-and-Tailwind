@@ -32,7 +32,6 @@ export const Header =()=> {
     const cartData = useSelector((state)=> state.ProductDetails.cartData)
 
     const location = useLocation()
-    console.log("location", location)
 
     const navigator = useNavigate()
 
