@@ -54,11 +54,10 @@ const ProductsShowCase = ({searchedItem, title, titleCategory, directlyShown})=>
                                             {product.brand || "No brand"}
                                         </p>
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
-                                            {product.images.map((singleImage, id) => (
-                                                <div key={id} className="md:w-8 w-3 ml-2 border-[1px] border-[#16161645]">
-                                                    <img src={singleImage} alt="Product Image" loading="lazy" />
+                                        
+                                                <div className=" p-1 border-[1px] border-[#16161645]">
+                                                    {product.category}
                                                 </div>
-                                            ))}
                                         </div>
                                     </div>
                                     <p className="text-black font-sans text-[1.1rem] capitalize  py-2">{product.title}</p>
@@ -89,7 +88,7 @@ const ProductsShowCase = ({searchedItem, title, titleCategory, directlyShown})=>
                             </div>
                                         </NavLink> 
                             </>
-                    )): isLoading? [...Array(6)].map((_, index)=>{
+                    )): isLoading || shown? [...Array(6)].map((_, index)=>{
                         return(<div key={index} className=" h-fit flex flex-col min-w-72 cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
                                 <div className="bg-[#d7d7d7] h-72 w-auto">
                                     <img  className="mix-blend-multiply" src="\loadng-product-image.jpeg" alt="" />

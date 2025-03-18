@@ -1,7 +1,7 @@
 import { NavLink } from "react-router"
 import { MainButton } from "../web Components/Buttons/MainButton"
 
-export const Error = ()=> {
+const Error = ()=> {
     return(<div style={{background: "url(/ErrorPage-bg.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -14,3 +14,5 @@ export const Error = ()=> {
     </div>
     )
 }
+
+export default Error

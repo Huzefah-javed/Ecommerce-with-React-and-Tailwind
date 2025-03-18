@@ -6,7 +6,7 @@ const Landingpage = lazy(()=>import ("./Pages/Landing page/LandingPage"))
 const ProductsPage = lazy(()=>import ("./Pages/ProductsPage"))
 const ProductDetailPage = lazy(()=>import ("./Pages/ProductDetailPage"))
 const Cart = lazy(()=>import ("./Pages/Cart"))
-import { Error } from "./Pages/Error"
+const Error = (()=>import ("./Pages/Error"))
 
 
 export const App =()=> {

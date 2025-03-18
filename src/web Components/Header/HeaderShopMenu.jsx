@@ -7,7 +7,7 @@ import { addProductCategoryData } from "../../Store"
 import { useQuery } from "@tanstack/react-query"
 
 
-const HeaderShopMenu =({shopMenuActive, setShopMenuActive})=> {
+const HeaderShopMenu =({shopMenuActive= false, setShopMenuActive})=> {
     const dispatch = useDispatch()
     
 

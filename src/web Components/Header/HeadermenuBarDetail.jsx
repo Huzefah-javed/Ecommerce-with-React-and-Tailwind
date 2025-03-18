@@ -2,7 +2,7 @@ import { GrClose } from "react-icons/gr";
 import { MainButton } from "../../../src/web Components/Buttons/MainButton"
 
 
-const HeaderMenubarDetail=({menuActive, setMenuActive})=> {
+const HeaderMenubarDetail=({menuActive= false, setMenuActive})=> {
 
     const handleCloseMenu =()=> {
         setMenuActive(false)

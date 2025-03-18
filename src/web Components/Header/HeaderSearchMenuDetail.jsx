@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
 import ProductsShowCase from "../../Pages/Landing page/LandingPageSections/ProductsShowCase"
 
-const HeaderSearchMenuDetail =({searchMenuActive, setSearchMenuActive})=> {
+const HeaderSearchMenuDetail =({searchMenuActive= false, setSearchMenuActive})=> {
     const [searchValue, setSearchedValue] = useState("")
     const handleSearchMenuClose =()=>{
         setSearchMenuActive(false)

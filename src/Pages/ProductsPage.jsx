@@ -100,6 +100,8 @@ const handleLoadMoreData =()=>{
 const handleFilterToggle =()=> {
   setFilterShown(!filterShown)
 }
+console.log(brandFilter);
+
     return (
         <div className="opacityAnimation">
             
@@ -242,11 +244,10 @@ const handleFilterToggle =()=> {
                                             {product.brand || "No brand"}
                                         </p>
                                         <div className="flex text-[0.85rem] font-bold text-[#161616ac]">
-                                            {product.images.map((singleImage, id) => (
-                                                <div key={id} className="md:w-8 w-4 ml-2 border-[1px] border-[#16161645]">
-                                                    <img className="opacityAnimation" src={singleImage} alt="Product Image" loading="lazy"/>
+                                              <div className="p-1 border-[1px] border-[#16161645]">
+                                                  {product.category}                                                
                                                 </div>
-                                            ))}
+                                            
                                         </div>
                                     </div>
                                     <p className="text-black font-sans text-[1.1rem] capitalize py-2">{product.title}</p>

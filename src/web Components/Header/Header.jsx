@@ -80,10 +80,10 @@ export const Header =()=> {
             <button className={`${location.pathname.includes("/products/")||location.pathname.includes("/cart")? "md:text-black": "md:text-white"} text-[1.7rem] text-black font-bold ml-10 cursor-pointer relative hover:text-amber-700 transition-all duration-500`}><NavLink to="/cart"><MdOutlineShoppingBag /><span className="absolute size-4  flex items-center justify-center left-[70%] top-0 bg-amber-700 text-white rounded-[80%] p-[3px] text-[0.65rem]">{cartData.length}</span></NavLink>
             </button>
         </div>
-        <Suspense fallback={<div>Loading...</div>}><HeaderMenubarDetail menuActive={menuActive} setMenuActive={setMenuActive}/></Suspense>
-         <Suspense fallback={<div>Loading...</div>}><HeaderSearchMenuDetail searchMenuActive={searchMenuActive} setSearchMenuActive={setSearchMenuActive}/></Suspense>
-        <Suspense fallback={<div>Loading...</div>}><HeaderShopMenu shopMenuActive={shopMenuActive} setShopMenuActive={setShopMenuActive}/></Suspense>
-        <Suspense fallback={<div>Loading...</div>}><HeaderExperienceDetail experienceMenu={experienceMenu} setExperienceMenu={setExperienceMenu}/></Suspense>
+       {menuActive? <HeaderMenubarDetail menuActive={menuActive} setMenuActive={setMenuActive}/>: ""}
+        {searchMenuActive? <HeaderSearchMenuDetail searchMenuActive={searchMenuActive} setSearchMenuActive={setSearchMenuActive}/>: ""}
+       {shopMenuActive? <HeaderShopMenu shopMenuActive={shopMenuActive} setShopMenuActive={setShopMenuActive}/>: ""}
+       {experienceMenu? <HeaderExperienceDetail experienceMenu={experienceMenu} setExperienceMenu={setExperienceMenu}/>: ""}
     </header>
 )
 }
