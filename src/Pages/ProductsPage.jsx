@@ -107,7 +107,7 @@ console.log(brandFilter);
         <div className="opacityAnimation">
             
             <HeroSection
-                bg_link="/productPageMainImage.webp"
+                bg_link="/product-page-image.webp"
                 heading="Discover Quality, Shop with Confidence"
                 para="Explore our premium collection of products designed to meet your needs. From top-notch materials to unbeatable prices, we ensure quality and satisfaction with every purchase."
                 buttonNone={true}

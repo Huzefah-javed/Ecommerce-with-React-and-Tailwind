@@ -22,16 +22,16 @@ export const ProductsCategories =()=>{
             imageLink : "beauty category.webp"
         },
         {
-            name : "home-decoration",
-            imageLink : "home decoration.webp"
+            name : "home decoration",
+            imageLink : "home-decoration.webp"
         },
         {
             name : "laptops",
-            imageLink : "laptops category.webp"
+            imageLink : "laptop-category.webp"
         },
         {
             name : "smartphones",
-            imageLink : "smartPhone category.webp"
+            imageLink : "smartphone-category.webp"
         }
     ]
 
@@ -66,7 +66,7 @@ export const ProductsCategories =()=>{
       Men's Clothing
     </h2>
     <img loading="lazy" className="product-category-image-style" 
-         src="mens category.webp" 
+         src="mens clothing.webp" 
          alt="mens category"/>
   </div>
 
@@ -81,7 +81,7 @@ export const ProductsCategories =()=>{
       Women's Clothing
     </h2>
     <img loading="lazy" className="product-category-image-style" 
-         src="womens category.webp" 
+         src="women category.webp" 
          alt="womens category"/>
   </div>
 </div>

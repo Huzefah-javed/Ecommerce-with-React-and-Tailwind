@@ -54,7 +54,7 @@ export const Header =()=> {
     <header className="md:w-full min-w-full max-w-full flex justify-between items-center absolute z-20 top-0 p-2 md:mt-10 bg-white shadow md:shadow-none md:bg-transparent">
                     <div className={`${location.pathname === "/"? "md:ml-8": "h-10"} relative flex items-center justify-start gap-0 -skew-x-[30deg]`}>
 
-                    <div className={`${windowWidth >= 768? "w-[15rem]":"w-[2rem]"} skew-x-[30deg]`}><img src={windowWidth >= 768 && location.pathname === "/"? "/main-logo.png":windowWidth >= 768 && location.pathname !== "/"? "":"/Logo.png"}/></div> 
+                    <div className={`${windowWidth >= 768? "w-[15rem]":"w-[2rem]"} skew-x-[30deg]`}><img src={windowWidth >= 768 && location.pathname === "/"? "/main-logo.webp":windowWidth >= 768 && location.pathname !== "/"? "":"/Logo.png"}/></div> 
 
                         {location.pathname === "/"?
                         "":
