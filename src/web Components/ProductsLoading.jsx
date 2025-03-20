@@ -1,9 +1,8 @@
-export const ProductLoading = ()=> {
+export const ProductLoading = ({productPage})=> {
     return(
         [...Array(6)].map((_, index)=>{
-            return(<div key={index} className=" h-fit flex flex-col min-w-72 cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow">
+            return(<div key={index} className={` h-fit flex flex-col ${productPage? "w-full": "md:w-64 w-56"} cursor-pointer border-[0.25px] border-[#f7f7f6] border-solid product-box-shadow `} >
                     <div className="bg-[#d7d7d7] h-72 w-auto">
-                        <img  className="mix-blend-multiply" src="\loadng-product-image.jpeg" alt="" />
                     </div>
                     <div className="p-2">
                            <div className="flex justify-between items-center">

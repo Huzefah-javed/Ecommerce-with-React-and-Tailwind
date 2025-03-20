@@ -231,7 +231,7 @@ console.log(brandFilter);
       </div>
                     <div className="productGrid grow-[2] relative grid grid-cols-2 md:grid-cols-3 grid-rows-3 gap-4">
                             
-                        {brandFilter.length === 0? <h1 className=" h-full flex justify-center items-center font-bold text-3xl">No product Found</h1>: ""}
+                        {brandFilter.length === 0 && !isLoading? <h1 className=" h-full flex justify-center items-center font-bold text-3xl">No product Found</h1>: ""}
                         {!isLoading && !isError && data ? brandFilter.map((product, index) => (
                             
                             <NavLink to={`/products/${product.id}`} >
@@ -278,7 +278,11 @@ console.log(brandFilter);
                                 </div>
                             </div>
                             </NavLink>
-                        )): isLoading? <div className="productGrid grow-[2] relative grid grid-cols-2 md:grid-cols-3 grid-rows-1 gap-4"><ProductLoading/></div>:(<div className="text-black text-3xl">error</div>)  
+                        )): isLoading? 
+                        
+                          <ProductLoading productPage={true}/>
+                          :
+                          (<div className="text-black text-3xl">error</div>)  
                     
                     }
                     </div>
